@@ -1,0 +1,186 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa open hello world",
+            "hello",
+            "help"
+          ],
+          "keywords": []
+        },
+        "en-GB": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa open hello world",
+            "hello",
+            "help"
+          ],
+          "keywords": []
+        },
+        "en-CA": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa open hello world",
+            "hello",
+            "help"
+          ],
+          "keywords": []
+        },
+        "en-IN": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa open hello world",
+            "hello",
+            "help"
+          ],
+          "keywords": []
+        },
+        "en-AU": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa open hello world",
+            "hello",
+            "help"
+          ],
+          "keywords": []
+        },
+        "es-ES": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa abre hola mundo",
+            "hola",
+            "ayuda"
+          ],
+          "keywords": []
+        },
+        "es-MX": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa abre hola mundo",
+            "hola",
+            "ayuda"
+          ],
+          "keywords": []
+        },
+        "es-US": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa abre hola mundo",
+            "hola",
+            "ayuda"
+          ],
+          "keywords": []
+        },
+        "fr-FR": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa ouvre le génie des salutations",
+            "bonjour",
+            "aide"
+          ],
+          "keywords": []
+        },
+        "fr-CA": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa ouvre le génie des salutations",
+            "bonjour",
+            "aide"
+          ],
+          "keywords": []
+        },
+        "ja-JP": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "アレクサ、ハローワールドを開いて",
+            "こんにちは",
+            "ヘルプ"
+          ],
+          "keywords": []
+        },
+        "de-DE": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa öffne hallo welt",
+            "hallo",
+            "hilfe"
+          ],
+          "keywords": []
+        },
+        "it-IT": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa apri ciao mondo",
+            "ciao",
+            "aiuto"
+          ],
+          "keywords": []
+        },
+        "hi-IN": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa मज़ेदार नमस्ते दुनिया",
+            "hello",
+            "मदद करो"
+          ],
+          "keywords": []
+        },
+        "pt-BR": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "Alexa abra olá mundo",
+            "olá",
+            "ajuda"
+          ],
+          "keywords": []
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Sample Testing Instructions.",
+      "category": "KNOWLEDGE_AND_TRIVIA",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "lambda/py",
+          "uri": "ask-custom-fish_battle-default"
+        }
+      }
+    },
+    "manifestVersion": "1.0"
+  }
+}

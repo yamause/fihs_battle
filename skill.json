@@ -1,0 +1,32 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "ja-JP": {
+          "name": "fish_battle",
+          "summary": "Sample Short Description",
+          "description": "Sample Full Description",
+          "examplePhrases": [
+            "アレクサ、ハローワールドを開いて",
+            "こんにちは",
+            "ヘルプ"
+          ],
+          "keywords": []
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Sample Testing Instructions.",
+      "category": "KNOWLEDGE_AND_TRIVIA",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "lambda/py/lambda_upload",
+          "uri": "ask-custom-fish_battle-default"
+        }
+      }
+    },
+    "manifestVersion": "1.0"
+  }
+}

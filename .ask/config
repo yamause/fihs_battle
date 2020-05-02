@@ -1,0 +1,50 @@
+{
+  "deploy_settings": {
+    "default": {
+      "skill_id": "",
+      "resources": {
+        "lambda": [
+          {
+            "functionName": "",
+            "alexaUsage": [
+              "custom/default"
+            ],
+            "runtime": "python3.7",
+            "handler": "hello_world.handler"
+          }
+        ]
+      },
+      "was_cloned": false,
+      "merge": {}
+    },
+    "Myprofile": {
+      "skill_id": "amzn1.ask.skill.741153e5-f237-4d28-a6ee-111a136d0c7c",
+      "was_cloned": false,
+      "merge": {},
+      "resources": {
+        "manifest": {
+          "eTag": "c83e8b81bdcf503eef790f833f98920b"
+        },
+        "interactionModel": {
+          "ja-JP": {
+            "eTag": "4452af8c82e42e9890f60c43df32e227"
+          }
+        },
+        "lambda": [
+          {
+            "alexaUsage": [
+              "custom/default"
+            ],
+            "arn": "arn:aws:lambda:us-east-1:073997598966:function:ask-custom-fish_battle-default",
+            "awsRegion": "us-east-1",
+            "codeUri": "lambda/py/lambda_upload",
+            "functionName": "ask-custom-fish_battle-default",
+            "handler": "hello_world.handler",
+            "revisionId": "5cbeb15e-fcc9-49c9-8564-2ef19e509264",
+            "runtime": "python3.7"
+          }
+        ]
+      }
+    }
+  }
+}
