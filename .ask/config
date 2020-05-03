@@ -23,11 +23,11 @@
       "merge": {},
       "resources": {
         "manifest": {
-          "eTag": "c83e8b81bdcf503eef790f833f98920b"
+          "eTag": "3582445efe80b102be5153ee191b091b"
         },
         "interactionModel": {
           "ja-JP": {
-            "eTag": "4452af8c82e42e9890f60c43df32e227"
+            "eTag": "95fb19de563818b178032d851cda7cdf"
           }
         },
         "lambda": [
@@ -40,7 +40,7 @@
             "codeUri": "lambda/py/lambda_upload",
             "functionName": "ask-custom-fish_battle-default",
             "handler": "hello_world.handler",
-            "revisionId": "5cbeb15e-fcc9-49c9-8564-2ef19e509264",
+            "revisionId": "83b99d69-b48a-4381-b8c4-9800a081c1ce",
             "runtime": "python3.7"
           }
         ]
