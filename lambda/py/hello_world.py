@@ -12,6 +12,13 @@ import ask_sdk_core.utils as ask_utils
 from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
+
+# S3
+from ask_sdk_core.skill_builder import CustomSkillBuilder
+from ask_sdk_s3.adapter import S3Adapter
+s3_adapter = S3Adapter(bucket_name="bucketname")
+
+# i18n
 from alexa import data
 
 # 各種ハンドラのインポート
@@ -33,7 +40,7 @@ logger.setLevel(logging.INFO)
 # defined are included below. The order matters - they're processed top to bottom.
 
 
-sb = SkillBuilder()
+sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 
 sb.add_request_handler(handler_launchrequest.LaunchRequestHandler())
 sb.add_request_handler(handler_helloworld.HelloWorldIntentHandler())
