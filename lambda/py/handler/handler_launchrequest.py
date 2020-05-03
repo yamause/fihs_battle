@@ -22,6 +22,16 @@ class LaunchRequestHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         _ = handler_input.attributes_manager.request_attributes["_"]
+        attr = handler_input.attributes_manager.persistent_attributes
+        if attr
+
+        attr["name"] = str("テストフィッシュ")
+        attr["life"] = int(100)
+        attr["power"] = int(100)
+        attr["defense"] = int(100)
+        handler_input.attributes_manager.persistent_attributes = attr
+        handler_input.attributes_manager.save_persistent_attributes()
+
         speak_output = _(data.WELCOME_MESSAGE)
 
         return (

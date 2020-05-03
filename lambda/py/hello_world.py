@@ -7,7 +7,6 @@
 import logging
 import gettext
 
-from ask_sdk_core.skill_builder import SkillBuilder
 import ask_sdk_core.utils as ask_utils
 from ask_sdk_core.handler_input import HandlerInput
 
