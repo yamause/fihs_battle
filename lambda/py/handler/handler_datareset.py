@@ -23,8 +23,7 @@ class DataResetHandler(AbstractRequestHandler):
         attr = handler_input.attributes_manager.persistent_attributes
         speak_output = ("データを消したよ")
 
-        handler_input.attributes_manager.persistent_attributes = attr
-        handler_input.attributes_manager.save_persistent_attributes()
+        handler_input.attributes_manager.delete_persistent_attributes()
 
         return (
             handler_input.response_builder

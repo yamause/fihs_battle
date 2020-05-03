@@ -1,7 +1,7 @@
 {
 	"interactionModel": {
 		"languageModel": {
-			"invocationName": "フィッシュバトル",
+			"invocationName": "フィッシュ",
 			"intents": [
 				{
 					"name": "AMAZON.CancelIntent",
