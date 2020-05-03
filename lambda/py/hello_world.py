@@ -15,21 +15,17 @@ from ask_sdk_model import Response
 # S3
 from ask_sdk_core.skill_builder import CustomSkillBuilder
 from ask_sdk_s3.adapter import S3Adapter
-s3_adapter = S3Adapter(bucket_name="bucketname")
-
-# i18n
-from alexa import data
+s3_adapter = S3Adapter(bucket_name="yottan")
 
 # 各種ハンドラのインポート
 from handler import handler_launchrequest
-from handler import handler_helloworld
+from handler import handler_battle
+from handler import handler_datareset
 from handler import handler_helpintent
 from handler import handler_cancelorstopintent
 from handler import handler_sessionendedrequesthandler
 from handler import handler_intentreflectionhandler
-from handler import handler_localizationinterceptor
 from handler import handler_catchallexceptionhandler
-
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -42,13 +38,13 @@ logger.setLevel(logging.INFO)
 sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 
 sb.add_request_handler(handler_launchrequest.LaunchRequestHandler())
-sb.add_request_handler(handler_helloworld.HelloWorldIntentHandler())
+sb.add_request_handler(handler_battle.BattleIntentHandler())
+sb.add_request_handler(handler_datareset.DataResetHandler())
 sb.add_request_handler(handler_helpintent.HelpIntentHandler())
 sb.add_request_handler(handler_cancelorstopintent.CancelOrStopIntentHandler())
 sb.add_request_handler(handler_sessionendedrequesthandler.SessionEndedRequestHandler())
 # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
 sb.add_request_handler(handler_intentreflectionhandler.IntentReflectorHandler())
-sb.add_global_request_interceptor(handler_localizationinterceptor.LocalizationInterceptor())
 sb.add_exception_handler(handler_catchallexceptionhandler.CatchAllExceptionHandler())
 
 handler = sb.lambda_handler()

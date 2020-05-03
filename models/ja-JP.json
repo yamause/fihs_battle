@@ -1,7 +1,7 @@
 {
 	"interactionModel": {
 		"languageModel": {
-			"invocationName": "ハローワールド",
+			"invocationName": "フィッシュバトル",
 			"intents": [
 				{
 					"name": "AMAZON.CancelIntent",
@@ -16,13 +16,16 @@
 					"samples": []
 				},
 				{
-					"name": "HelloWorldIntent",
-					"slots": [],
-					"samples": [ "hello", "ハロー", "こんにちは" ]
-				},
-				{
 					"name": "AMAZON.NavigateHomeIntent",
 					"samples": []
+				},
+				{
+					"name": "BattleIntent",
+					"samples": ["戦う","勝負","デュエル"]
+				},
+				{
+					"name": "DataResetIntent",
+					"samples": ["データを消して","データを削除して","データ消して"]
 				}
 			],
 			"types": []
