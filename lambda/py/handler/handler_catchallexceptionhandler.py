@@ -6,7 +6,6 @@ from ask_sdk_core import utils as ask_utils
 from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
-from alexa import data
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -24,8 +23,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
     def handle(self, handler_input, exception):
         # type: (HandlerInput, Exception) -> Response
         logger.error(exception, exc_info=True)
-        _ = handler_input.attributes_manager.request_attributes["_"]
-        speak_output = _(data.ERROR)
+        speak_output = ("エラーだよ")
 
         return (
             handler_input.response_builder

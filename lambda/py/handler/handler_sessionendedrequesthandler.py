@@ -6,7 +6,6 @@ from ask_sdk_core import utils as ask_utils
 from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
-from alexa import data
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
