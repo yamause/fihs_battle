@@ -11,17 +11,17 @@ from ask_sdk_model import Response
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-class BattleIntentHandler(AbstractRequestHandler):
+class DataResetHandler(AbstractRequestHandler):
     """Handler for Hello World Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("DataIntent")(handler_input)
+        return ask_utils.is_intent_name("DataResetIntent")(handler_input)
 
     def handle(self, handler_input):
         
         # type: (HandlerInput) -> Response
         attr = handler_input.attributes_manager.persistent_attributes
-        speak_output = ("")
+        speak_output = ("データを消したよ")
 
         handler_input.attributes_manager.persistent_attributes = attr
         handler_input.attributes_manager.save_persistent_attributes()

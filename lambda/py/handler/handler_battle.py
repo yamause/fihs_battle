@@ -46,14 +46,14 @@ class BattleIntentHandler(AbstractRequestHandler):
 
         #比較
         if mdown > edown:
-	    speak_output = ("おまえの負け")
-	    attr["v_count"] += 1
-        attr["life"] -= emfish_A
+            speak_output = ("おまえの負け")
+            attr["v_count"] += 1
+            attr["life"] -= emfish_A
         elif mdown < edown:
-	    speak_output = ("おまえの勝ち")
-        attr["life"] -= emfish_A
+            speak_output = ("おまえの勝ち")
+            attr["life"] -= emfish_A
         else:
-	　　speak_output = ("おまえら強さ同じ")
+            speak_output = ("おまえら強さ同じ")
 
         handler_input.attributes_manager.persistent_attributes = attr
         handler_input.attributes_manager.save_persistent_attributes()

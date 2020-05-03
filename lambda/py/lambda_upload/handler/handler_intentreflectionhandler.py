@@ -6,7 +6,6 @@ from ask_sdk_core import utils as ask_utils
 from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
-from alexa import data
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -24,9 +23,8 @@ class IntentReflectorHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        _ = handler_input.attributes_manager.request_attributes["_"]
         intent_name = ask_utils.get_intent_name(handler_input)
-        speak_output = _(data.REFLECTOR_MSG).format(intent_name)
+        speak_output = ("ああああ{}").format(intent_name)
 
         return (
             handler_input.response_builder
