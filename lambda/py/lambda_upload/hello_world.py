@@ -5,7 +5,6 @@
 # session persistence, api calls, and more.
 # This sample is built using the handler classes approach in skill builder.
 import logging
-import gettext
 
 import ask_sdk_core.utils as ask_utils
 from ask_sdk_core.handler_input import HandlerInput
@@ -20,7 +19,9 @@ s3_adapter = S3Adapter(bucket_name="yottan")
 # 各種ハンドラのインポート
 from handler import handler_launchrequest
 from handler import handler_battle
+from handler import handler_training
 from handler import handler_datareset
+from handler import handler_statuscheck
 from handler import handler_helpintent
 from handler import handler_cancelorstopintent
 from handler import handler_sessionendedrequesthandler
@@ -39,6 +40,8 @@ sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 
 sb.add_request_handler(handler_launchrequest.LaunchRequestHandler())
 sb.add_request_handler(handler_battle.BattleIntentHandler())
+sb.add_request_handler(handler_training.TrainingIntentHandler())
+sb.add_request_handler(handler_statuscheck.StatusCheckHandler())
 sb.add_request_handler(handler_datareset.DataResetHandler())
 sb.add_request_handler(handler_helpintent.HelpIntentHandler())
 sb.add_request_handler(handler_cancelorstopintent.CancelOrStopIntentHandler())

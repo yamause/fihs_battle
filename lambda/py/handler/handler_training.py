@@ -17,46 +17,42 @@ class TrainingIntentHandler(AbstractRequestHandler):
         return ask_utils.is_intent_name("TrainingIntent")(handler_input)
 
     def handle(self, handler_input):
-        
         # type: (HandlerInput) -> Response
         attr = handler_input.attributes_manager.persistent_attributes
+        #---------test-------------
+        slots = handler_input.request_envelope.request.intent.slots
+        print(slots)
+        peak_output = slots
+        #---------test-------------
+        
         
         #マイフィッシュの攻撃力、防御力を代入
         my_hp = attr["life"]
         my_power = attr["power"]
         my_defense = attr["defense"]
         
-        #敵フィッシュの攻撃力、防御力を代入
-        enemy_hp = my_hp + random.uniform(-10,20)
-        enemy_power = my_power + random.uniform(-10,20) 
-        enemy_defense = my_defense + random.uniform(-10,20)
-
-        #防御力を加味した攻撃力の計算
-        myfish_power = my_power - enemy_defense + random.uniform(-5,10)
-        emfish_power = enemy_power - my_defense + random.uniform(-5,10)
-
-        #HPを減算
-        my_hp_after = my_hp - emfish_power
-        enemy_hp_after = enemy_hp - myfish_power
-
-        #割合の計算
-        mdown = 1 - my_hp_after / my_hp
-        edown = 1 - enemy_hp_after / enemy_hp
-
-        #比較
-        if mdown > edown:
-            speak_output = ("おまえの負け")
-            attr["v_count"] += 1
-            attr["life"] -= emfish_power
-        elif mdown < edown:
-            speak_output = ("おまえの勝ち")
-            attr["life"] -= emfish_power
-        else:
-            speak_output = ("おまえら強さ同じ")
-
+"""
+        #パワーとディフェンスどちらを上げる？
+        slot_power = slots[]
+        if  == :
+        #パワーを上げる
+        attr["power"] += random.uniform(0,10)
+        speak_output = ("パワーが上がったよ")
+        attr["life"] -= 10
+        
+        #ディフェンスを上げる
+        attr["defense"] += random.uniform(0,10)
+        speak_output = ("ディフェンスが上がったよ")
+        attr["life"] -= 10
+        
+        #ライフを上げる
+        attr["max_life"] += random.uniform(0,10)
+        speak_output = ("ライフの最大値が上がったよ")
+        attr["life"] -= 10
+        
         handler_input.attributes_manager.persistent_attributes = attr
         handler_input.attributes_manager.save_persistent_attributes()
-
+"""
         return (
             handler_input.response_builder
             .speak(speak_output)

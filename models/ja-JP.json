@@ -30,9 +30,47 @@
 				{
 					"name": "DataResetIntent",
 					"samples": ["データを消して","データを削除して","データ消して"]
+				},
+				{
+				  "name": "TrainingIntent",
+				  "slots": [
+					{
+					  "name": "menu",
+					  "type": "training_menu"
+					}
+				  ],
+				  "samples": [
+					"{menu}を鍛えたい",
+					"{menu}をトレーニング",
+					"{menu}を強くしたい"
+				  ]
 				}
 			],
-			"types": []
+			"types": [
+				{
+					"name":"training_menu",
+					"value":[
+						{
+							"id": "power",
+							"name":{
+								"value":"パワー"
+							}
+						},
+						{
+							"id": "defense",
+							"name":{
+								"value":"ディフェンス"
+							}
+						},
+						{
+							"id": "life",
+							"name":{
+								"value":"ライフ"
+							}
+						}
+					]
+				}
+			]
 		}
 	}
 }

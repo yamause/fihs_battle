@@ -1,7 +1,6 @@
 import logging
-import gettext
 
-from ask_sdk_core.dispatch_components import (AbstractRequestHandler, AbstractRequestInterceptor, AbstractExceptionHandler)
+from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core import utils as ask_utils
 from ask_sdk_core.handler_input import HandlerInput
 
