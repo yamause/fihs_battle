@@ -18,15 +18,18 @@ class StatusCheckHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         
         # type: (HandlerInput) -> Response
-        attr = handler_input.attributes_manager.persistent_attributes()
+        attr = handler_input.attributes_manager.persistent_attributes
+        print(attr)
         max_life = attr["max_life"]
         life = attr["life"]
         power = attr["power"]
         defense = attr["defense"]
 
+        speak_output = ("フィッシュの最大ライフは{}、今のライフは{}、パワーは{}、ディフェンスは{}です。").format(max_life,life,power,defense)
+
         return (
             handler_input.response_builder
-            .speak("フィッシュの最大ライフは{}、今のライフは{}、パワーは{}、ディフェンスは{}です。").format(max_life,life,power,defense)  
+            .speak(speak_output)
             # .ask("add a reprompt if you want to keep the session open for the user to respond")
             .response
         )

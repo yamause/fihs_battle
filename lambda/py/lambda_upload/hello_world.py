@@ -14,7 +14,7 @@ from ask_sdk_model import Response
 # S3
 from ask_sdk_core.skill_builder import CustomSkillBuilder
 from ask_sdk_s3.adapter import S3Adapter
-s3_adapter = S3Adapter(bucket_name="yottan")
+s3_adapter = S3Adapter(bucket_name="fishbattle")
 
 # 各種ハンドラのインポート
 from handler import handler_launchrequest
@@ -43,10 +43,13 @@ sb.add_request_handler(handler_battle.BattleIntentHandler())
 sb.add_request_handler(handler_training.TrainingIntentHandler())
 sb.add_request_handler(handler_statuscheck.StatusCheckHandler())
 sb.add_request_handler(handler_datareset.DataResetHandler())
+
+
 sb.add_request_handler(handler_helpintent.HelpIntentHandler())
 sb.add_request_handler(handler_cancelorstopintent.CancelOrStopIntentHandler())
 sb.add_request_handler(handler_sessionendedrequesthandler.SessionEndedRequestHandler())
-# make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
+
+
 sb.add_request_handler(handler_intentreflectionhandler.IntentReflectorHandler())
 sb.add_exception_handler(handler_catchallexceptionhandler.CatchAllExceptionHandler())
 

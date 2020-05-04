@@ -22,7 +22,7 @@ class TrainingIntentHandler(AbstractRequestHandler):
         #---------test-------------
         slots = handler_input.request_envelope.request.intent.slots
         print(slots)
-        peak_output = slots
+        speak_output = slots
         #---------test-------------
         
         
@@ -31,6 +31,12 @@ class TrainingIntentHandler(AbstractRequestHandler):
         my_power = attr["power"]
         my_defense = attr["defense"]
         
+        return (
+            handler_input.response_builder
+            .speak(speak_output)
+            .set_should_end_session(False)
+            .response
+            )
 """
         #パワーとディフェンスどちらを上げる？
         slot_power = slots[]
@@ -53,9 +59,3 @@ class TrainingIntentHandler(AbstractRequestHandler):
         handler_input.attributes_manager.persistent_attributes = attr
         handler_input.attributes_manager.save_persistent_attributes()
 """
-        return (
-            handler_input.response_builder
-            .speak(speak_output)
-            .set_should_end_session(False)
-            .response
-        )

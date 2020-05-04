@@ -24,48 +24,49 @@
 					"samples": ["戦う","勝負","デュエル","バトル"]
 				},
 				{
-					"name": "StatusCheckIntent",
-					"samples": ["ステータス","ステータス教えて","具合どう"]
-				},
-				{
 					"name": "DataResetIntent",
 					"samples": ["データを消して","データを削除して","データ消して"]
 				},
 				{
-				  "name": "TrainingIntent",
-				  "slots": [
-					{
-					  "name": "menu",
-					  "type": "training_menu"
-					}
-				  ],
-				  "samples": [
-					"{menu}を鍛えたい",
-					"{menu}をトレーニング",
-					"{menu}を強くしたい"
-				  ]
+					"name": "StatusCheckIntent",
+					"samples": ["ステータス","ステータス教えて","具合どう"]
+				},
+				{
+					"name": "TrainingIntent",
+					"slots": [
+						{
+							"name": "menu",
+							"type": "training_menu"
+						}
+					],
+					"samples": [
+						"{menu} を鍛えたい",
+						"{menu} をトレーニング",
+						"{menu} を強くしたい"
+					]
 				}
 			],
-			"types": [
+			"types":
+			[
 				{
-					"name":"training_menu",
-					"value":[
+					"name": "training_menu",
+					"values": [
 						{
 							"id": "power",
-							"name":{
-								"value":"パワー"
+							"name": {
+								"value": "パワー"
 							}
 						},
 						{
-							"id": "defense",
-							"name":{
-								"value":"ディフェンス"
+							"id":"defense",
+							"name": {
+								"value": "ディフェンス"
 							}
 						},
 						{
 							"id": "life",
-							"name":{
-								"value":"ライフ"
+							"name": {
+								"value": "ライフ"
 							}
 						}
 					]
