@@ -1,7 +1,7 @@
 {
 	"interactionModel": {
 		"languageModel": {
-			"invocationName": "フィッシュバトル",
+			"invocationName": "よったん",
 			"intents": [
 				{
 					"name": "AMAZON.CancelIntent",
@@ -21,7 +21,11 @@
 				},
 				{
 					"name": "BattleIntent",
-					"samples": ["戦う","勝負","デュエル"]
+					"samples": ["戦う","勝負","デュエル","バトル"]
+				},
+				{
+					"name": "StatusCheckIntent",
+					"samples": ["ステータス","ステータス教えて","具合どう"]
 				},
 				{
 					"name": "DataResetIntent",

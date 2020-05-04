@@ -10,11 +10,11 @@ from ask_sdk_model import Response
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-class BattleIntentHandler(AbstractRequestHandler):
+class TrainingIntentHandler(AbstractRequestHandler):
     """Handler for Hello World Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("BattleIntent")(handler_input)
+        return ask_utils.is_intent_name("TrainingIntent")(handler_input)
 
     def handle(self, handler_input):
         
