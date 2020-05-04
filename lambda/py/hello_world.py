@@ -15,7 +15,7 @@ from ask_sdk_model import Response
 # S3
 from ask_sdk_core.skill_builder import CustomSkillBuilder
 from ask_sdk_s3.adapter import S3Adapter
-s3_adapter = S3Adapter(bucket_name="fishbattle")
+s3_adapter = S3Adapter(bucket_name="yottan")
 
 # 各種ハンドラのインポート
 from handler import handler_launchrequest
