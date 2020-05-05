@@ -73,5 +73,28 @@
 				}
 			]
 		}
-	}
+	},
+	"dialog": {
+		"intents": [
+			{
+				"name": "DataResetIntent",
+				"delegationStrategy": "ALWAYS",
+				"confirmationRequired": true,
+				"prompts": {
+					"confirmation": "Confirm.Intent.10001"
+				}
+			}
+		]
+	},
+	"prompts": [
+		{
+			"id": "Confirm.Intent.10001",
+			"variations": [
+				{
+					"type": "PlainText",
+					"value": "この対話を実行すると今までのデータが全て消えてしまいます。本当にデータを削除しますか？"
+				}
+			]
+		}
+	]
 }
