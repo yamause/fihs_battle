@@ -1,138 +1,160 @@
 {
-	"interactionModel": {
-		"languageModel": {
-			"invocationName": "よったん",
-			"intents": [
-				{
-					"name": "AMAZON.CancelIntent",
-					"samples": []
-				},
-				{
-					"name": "AMAZON.HelpIntent",
-					"samples": []
-				},
-				{
-					"name": "AMAZON.StopIntent",
-					"samples": []
-				},
-				{
-					"name": "AMAZON.NavigateHomeIntent",
-					"samples": []
-				},
-				{
-					"name": "BattleIntent",
-					"samples": ["戦う","勝負","デュエル","バトル"]
-				},
-				{
-					"name": "DataResetIntent",
-					"slots": [
-						{
-							"name": "yes_no_slot",
-							"type": "yes_no"
-						}
-					],
-					"samples": ["データを消して","データを削除して","{yes_no_slot} データ消して"]
-				},
-				{
-					"name": "StatusCheckIntent",
-					"samples": ["ステータス","ステータス教えて","具合どう"]
-				},
-				{
-					"name": "TrainingIntent",
-					"slots": [
-						{
-							"name": "menu",
-							"type": "training_menu"
-						}
-					],
-					"samples": [
-						"{menu} を鍛えたい",
-						"{menu} をトレーニング",
-						"{menu} を強くしたい"
-					]
-				}
-			],
-			"types":
-			[
-				{
-					"name": "training_menu",
-					"values": [
-						{
-							"id": "power",
-							"name": {
-								"value": "パワー"
-							}
-						},
-						{
-							"id":"defense",
-							"name": {
-								"value": "ディフェンス"
-							}
-						},
-						{
-							"id": "life",
-							"name": {
-								"value": "ライフ"
-							}
-						}
-					]
-				},
-				{
-					"name": "yes_no",
-					"values": [
-						{
-							"id":"yes",
-							"name": {
-								"value": "はい",
-								"synonyms": [
-									"うん","いいよ","お願い","OK","イエス"
-								]
-							}
-						},
-						{
-							"id": "no",
-							"name": {
-								"value": "いいえ",
-								"synonyms": [
-									"ううん","違う","結構です","ダメ","ノー"
-								]
-							}
-						}
-					]
-				}
-			]
-		}
-	},
-	"dialog": {
-		"intents": [
-			{
-				"name": "DataResetIntent",
-				"confirmationRequired": true,
-				"prompts": {},
-				"slots":[
-					{
-						"name":"yes_no_slot",
-						"type":"yes_no",
-						"confirmationRequired": false,
-						"elicitationRequired": true,
-						"prompts": {
-							"elicitation": "Elicit.Slot.10001.10001"
-						}
-					}
-				]
-			}
-		],
-		"delegationStrategy": "ALWAYS"
-	},
-	"prompts": [
-		{
-			"id": "Elicit.Slot.10001.10001",
-			"variations": [
-				{
-					"type": "PlainText",
-					"value": "この対話を実行すると今までのデータが全て消えてしまいます。本当にデータを削除しますか？"
-				}
-			]
-		}
-	]
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "よったん",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "BattleIntent",
+                    "slots": [],
+                    "samples": [
+                        "戦う",
+                        "勝負",
+                        "デュエル",
+                        "バトル"
+                    ]
+                },
+                {
+                    "name": "DataResetIntent",
+                    "slots": [
+                        {
+                            "name": "yes_no_slot",
+                            "type": "yes_no"
+                        }
+                    ],
+                    "samples": [
+                        "データを消して",
+                        "データを削除して",
+                        "データ消して"
+                    ]
+                },
+                {
+                    "name": "StatusCheckIntent",
+                    "slots": [],
+                    "samples": [
+                        "ステータス",
+                        "ステータス教えて",
+                        "具合どう"
+                    ]
+                },
+                {
+                    "name": "TrainingIntent",
+                    "slots": [
+                        {
+                            "name": "menu",
+                            "type": "training_menu"
+                        }
+                    ],
+                    "samples": [
+                        "{menu} を鍛えたい",
+                        "{menu} をトレーニング",
+                        "{menu} を強くしたい"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "training_menu",
+                    "values": [
+                        {
+                            "id": "power",
+                            "name": {
+                                "value": "パワー"
+                            }
+                        },
+                        {
+                            "id": "defense",
+                            "name": {
+                                "value": "ディフェンス"
+                            }
+                        },
+                        {
+                            "id": "life",
+                            "name": {
+                                "value": "ライフ"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "yes_no",
+                    "values": [
+                        {
+                            "id": "yes",
+                            "name": {
+                                "value": "はい",
+                                "synonyms": [
+                                    "うん",
+                                    "いいよ",
+                                    "お願い",
+                                    "OK",
+                                    "イエス"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "no",
+                            "name": {
+                                "value": "いいえ",
+                                "synonyms": [
+                                    "ううん",
+                                    "違う",
+                                    "結構です",
+                                    "ダメ",
+                                    "ノー"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "DataResetIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "yes_no_slot",
+                            "type": "yes_no",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.758947591335.1128887128930"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.758947591335.1128887128930",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "この操作を実行すると今までのデータが全て消えてしまいます。本当にデータを削除しますか？"
+                    }
+                ]
+            }
+        ]
+    }
 }
