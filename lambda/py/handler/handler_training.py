@@ -21,8 +21,9 @@ class TrainingIntentHandler(AbstractRequestHandler):
         attr = handler_input.attributes_manager.persistent_attributes
         #---------test-------------
         slots = handler_input.request_envelope.request.intent.slots
+        speak_output = slots["menu"].resolutions.resolutions_per_authority[0].values[0].value.id
+        print(speak_output)
         print(slots)
-        speak_output = slots
         #---------test-------------
         
         

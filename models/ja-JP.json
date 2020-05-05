@@ -25,7 +25,13 @@
 				},
 				{
 					"name": "DataResetIntent",
-					"samples": ["データを消して","データを削除して","データ消して"]
+					"slots": [
+						{
+							"name": "yes_no_slot",
+							"type": "yes_no"
+						}
+					],
+					"samples": ["データを消して","データを削除して","{yes_no_slot} データ消して"]
 				},
 				{
 					"name": "StatusCheckIntent",
@@ -70,6 +76,29 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "yes_no",
+					"values": [
+						{
+							"id":"yes",
+							"name": {
+								"value": "はい",
+								"synonyms": [
+									"うん","いいよ","お願い","OK","イエス"
+								]
+							}
+						},
+						{
+							"id": "no",
+							"name": {
+								"value": "いいえ",
+								"synonyms": [
+									"ううん","違う","結構です","ダメ","ノー"
+								]
+							}
+						}
+					]
 				}
 			]
 		}
@@ -78,17 +107,26 @@
 		"intents": [
 			{
 				"name": "DataResetIntent",
-				"delegationStrategy": "ALWAYS",
 				"confirmationRequired": true,
-				"prompts": {
-					"confirmation": "Confirm.Intent.10001"
-				}
+				"prompts": {},
+				"slots":[
+					{
+						"name":"yes_no_slot",
+						"type":"yes_no",
+						"confirmationRequired": false,
+						"elicitationRequired": true,
+						"prompts": {
+							"elicitation": "Elicit.Slot.10001.10001"
+						}
+					}
+				]
 			}
-		]
+		],
+		"delegationStrategy": "ALWAYS"
 	},
 	"prompts": [
 		{
-			"id": "Confirm.Intent.10001",
+			"id": "Elicit.Slot.10001.10001",
 			"variations": [
 				{
 					"type": "PlainText",
