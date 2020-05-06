@@ -21,48 +21,59 @@ class BattleIntentHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         attr = handler_input.attributes_manager.persistent_attributes
         
-        #マイフィッシュの攻撃力、防御力を代入
-        my_hp = attr["life"]
-        my_power = attr["power"]
-        my_defense = attr["defense"]
+        #初期値の設定
+        class char():
+            def __init__(self,name,life,power,defence):
+                self.name = name
+                self.life = life
+                self.power = power
+                self.defence = defense
+
+        my_fish = char(my,attr["life"],attr["power"],attr["defence"])
         
-        #敵フィッシュの攻撃力、防御力を代入
-        def make_enemy(bbb,ccc,ddd):
-            aaa = bbb + int(random.uniform(ccc,ddd))
-            return(aaa) 
+        enemy_fish_1 = char("ザコテキ",100,100,100)
+        enemy_fish_2 = char("フツテキ",150,150,150)
+        enemy_fish_3 = char("ツヨテキ",200,200,200)
 
-        enemy_hp = make_enemy(my_hp,-10,20)
-        enemy_power = make_enemy(my_power,-10,20)
-        enemy_defence = make_enemy(my_defense,-10,20)
+        enemy_box[
+            enemy_fish_1
+            enemy_fish_2
+            enemy_fish_3
+        ]
+        enemy_box[0].life
+        random
+        
+        myfish_power = my_fish.power - enemy_box[num].defense + int(random.uniform(-5,10))
+        emfish_power = enemy_box[num].power - my_fish.defense + int(random.uniform(-5,10))
 
-        #防御力を加味した攻撃力の計算
-        myfish_power = my_power - enemy_defense + int(random.uniform(-5,10))
-        emfish_power = enemy_power - my_defense + int(random.uniform(-5,10))
+        #コマンド選択
 
-        #kansu
-        my_hp_after = my_hp - emfish_power
-        enemy_hp_after = enemy_hp - myfish_power
 
-        #戦うか逃げるか
 
 
         #割合の計算
-        mdown = 1 - my_hp_after / my_hp
-        edown = 1 - enemy_hp_after / enemy_hp
+        mdown = my_hp_after / my_fish.life
+        edown = enemy_hp_after / enemy_box[num].life
 
         #比較
         if mdown > edown:
             speak_output = ("おまえの負け")
             attr["v_count"] += 1
             attr["life"] -= emfish_power
+            
         elif mdown < edown:
             speak_output = ("おまえの勝ち")
             attr["life"] -= emfish_power
         else:
             speak_output = ("おまえら強さ同じ")
 
-        handler_input.attributes_manager.persistent_attributes = attr
-        handler_input.attributes_manager.save_persistent_attributes()
+        if attr["life"] <= 0 :
+            handler_input.attributes_manager.delete_persistent_attributes()
+            bools = True
+            speak_output = ("あなたのフィッシュのライフが0になり、死んでしまいました。また初めから遊んでください。")
+        else:
+            handler_input.attributes_manager.persistent_attributes = attr
+            handler_input.attributes_manager.save_persistent_attributes()
 
         return (
             handler_input.response_builder

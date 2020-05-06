@@ -18,7 +18,7 @@ class TrainingIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         bools = False
         attr = handler_input.attributes_manager.persistent_attributes
-        
+
         #スロット値代入
         slots = handler_input.request_envelope.request.intent.slots
         menu = slots["menu"].resolutions.resolutions_per_authority[0].values[0].value.id
@@ -54,7 +54,8 @@ class TrainingIntentHandler(AbstractRequestHandler):
         else:
             speak_output = ("{}が{}上がったよ。現在の{}は{}です").format(comment,status_add,comment,status)
             handler_input.attributes_manager.persistent_attributes = attr
-            handler_input.attributes_manager.save_persistent_attributes()        
+            handler_input.attributes_manager.save_persistent_attributes()  
+                  
         return (
             handler_input.response_builder
             .speak(speak_output)
