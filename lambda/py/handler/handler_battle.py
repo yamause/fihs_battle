@@ -27,13 +27,13 @@ class BattleIntentHandler(AbstractRequestHandler):
         my_defense = attr["defense"]
         
         #敵フィッシュの攻撃力、防御力を代入
-        enemy_hp = my_hp + random.uniform(-10,20)
-        enemy_power = my_power + random.uniform(-10,20) 
-        enemy_defense = my_defense + random.uniform(-10,20)
+        enemy_hp = my_hp + int(random.uniform(-10,20))
+        enemy_power = my_power + int(random.uniform(-10,20))
+        enemy_defense = my_defense + int(random.uniform(-10,20))
 
         #防御力を加味した攻撃力の計算
-        myfish_power = my_power - enemy_defense + random.uniform(-5,10)
-        emfish_power = enemy_power - my_defense + random.uniform(-5,10)
+        myfish_power = my_power - enemy_defense + int(random.uniform(-5,10))
+        emfish_power = enemy_power - my_defense + int(random.uniform(-5,10))
 
         #HPを減算
         my_hp_after = my_hp - emfish_power
