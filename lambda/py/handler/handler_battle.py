@@ -41,10 +41,10 @@ class BattleIntentHandler(AbstractRequestHandler):
             enemy_fish_3
         ]
         enemy_box[0].life
-        random
+
         
-        myfish_power = my_fish.power - enemy_box[num].defense + int(random.uniform(-5,10))
-        emfish_power = enemy_box[num].power - my_fish.defense + int(random.uniform(-5,10))
+        myfish_power = my_fish.power - enemy_box[num].defense + int(random.randint(-5,10))
+        emfish_power = enemy_box[num].power - my_fish.defense + int(random.randint(-5,10))
 
         #コマンド選択
 
@@ -60,13 +60,14 @@ class BattleIntentHandler(AbstractRequestHandler):
             speak_output = ("おまえの負け")
             attr["v_count"] += 1
             attr["life"] -= emfish_power
-            
+
         elif mdown < edown:
             speak_output = ("おまえの勝ち")
             attr["life"] -= emfish_power
         else:
             speak_output = ("おまえら強さ同じ")
 
+        # 生死判定
         if attr["life"] <= 0 :
             handler_input.attributes_manager.delete_persistent_attributes()
             bools = True

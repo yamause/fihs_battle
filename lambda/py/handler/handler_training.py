@@ -23,8 +23,8 @@ class TrainingIntentHandler(AbstractRequestHandler):
         slots = handler_input.request_envelope.request.intent.slots
         menu = slots["menu"].resolutions.resolutions_per_authority[0].values[0].value.id
 
-        # ステータスの上昇ちの計算
-        status_add = int(random.uniform(0,10))
+        # ステータスの上昇値の計算
+        status_add = int(random.randint(0,10))
         attr["life"] -= 10
         print(attr["life"])
         #パワーを上げる

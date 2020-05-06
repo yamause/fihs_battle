@@ -24,8 +24,9 @@ class StatusCheckHandler(AbstractRequestHandler):
         life = attr["life"]
         power = attr["power"]
         defense = attr["defense"]
+        v_count = attr["v_count"]
 
-        speak_output = ("フィッシュの最大ライフは{}、今のライフは{}、パワーは{}、ディフェンスは{}です。").format(max_life,life,power,defense)
+        speak_output = ("フィッシュの最大ライフは{}、今のライフは{}、パワーは{}、ディフェンスは{}です。現在の勝利数は{}").format(max_life,life,power,defense,v_count)
 
         return (
             handler_input.response_builder

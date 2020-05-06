@@ -23,7 +23,7 @@ class IntentReflectorHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         intent_name = ask_utils.get_intent_name(handler_input)
-        speak_output = ("ああああ{}").format(intent_name)
+        speak_output = ("指定インテント{}にエラー").format(intent_name)
 
         return (
             handler_input.response_builder
