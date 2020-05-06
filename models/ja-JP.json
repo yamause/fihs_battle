@@ -20,6 +20,14 @@
                     "samples": []
                 },
                 {
+                    "name": "MealIntent",
+                    "samples": [
+                        "食事",
+                        "ご飯を食べさせたい",
+                        "体力を回復して",
+                    ]
+                },
+                {
                     "name": "BattleIntent",
                     "slots": [],
                     "samples": [
@@ -40,7 +48,8 @@
                     "samples": [
                         "データを消して",
                         "データを削除して",
-                        "データ消して"
+                        "データ消して",
+                        "{yes_no_slot} データを消して"
                     ]
                 },
                 {

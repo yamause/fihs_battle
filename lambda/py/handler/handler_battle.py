@@ -27,17 +27,24 @@ class BattleIntentHandler(AbstractRequestHandler):
         my_defense = attr["defense"]
         
         #敵フィッシュの攻撃力、防御力を代入
-        enemy_hp = my_hp + int(random.uniform(-10,20))
-        enemy_power = my_power + int(random.uniform(-10,20))
-        enemy_defense = my_defense + int(random.uniform(-10,20))
+        def make_enemy(bbb,ccc,ddd):
+            aaa = bbb + int(random.uniform(ccc,ddd))
+            return(aaa) 
+
+        enemy_hp = make_enemy(my_hp,-10,20)
+        enemy_power = make_enemy(my_power,-10,20)
+        enemy_defence = make_enemy(my_defense,-10,20)
 
         #防御力を加味した攻撃力の計算
         myfish_power = my_power - enemy_defense + int(random.uniform(-5,10))
         emfish_power = enemy_power - my_defense + int(random.uniform(-5,10))
 
-        #HPを減算
+        #kansu
         my_hp_after = my_hp - emfish_power
         enemy_hp_after = enemy_hp - myfish_power
+
+        #戦うか逃げるか
+
 
         #割合の計算
         mdown = 1 - my_hp_after / my_hp
