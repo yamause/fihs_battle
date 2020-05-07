@@ -23,29 +23,35 @@ class BattleIntentHandler(AbstractRequestHandler):
         
         #初期値の設定
         class char():
-            def __init__(self,name,life,power,defence):
+            enemy_box = []
+            def __init__(self,name,life,power,defense):
+                char.enemy_box.append(self)
                 self.name = name
                 self.life = life
                 self.power = power
                 self.defence = defense
 
+            def battle():
+                myfish_power = my_fish.power - enemy_box[num].defense + int(random.randint(-5,10))
+                emfish_power = enemy_box[num].power - my_fish.defense + int(random.randint(-5,10))
+
         my_fish = char(my,attr["life"],attr["power"],attr["defence"])
         
-        enemy_fish_1 = char("ザコテキ",100,100,100)
-        enemy_fish_2 = char("フツテキ",150,150,150)
+        enemy_fish_1 = char("ザコテキ",100,100,100),
+        enemy_fish_2 = char("フツテキ",150,150,150),
         enemy_fish_3 = char("ツヨテキ",200,200,200)
 
-        enemy_box[
-            enemy_fish_1
-            enemy_fish_2
-            enemy_fish_3
-        ]
-        enemy_box[0].life
+        # 敵のランダム出現
+        num = random.randint(0,len(char.enemy_box) - 1)
+        print(char.enemy_box[num].name)
 
-        
+ """　charaクラスに組み込み     
+
+現行の処理だと結果にマイナス値が出た場合、相手のライフ回復しない？
+
         myfish_power = my_fish.power - enemy_box[num].defense + int(random.randint(-5,10))
         emfish_power = enemy_box[num].power - my_fish.defense + int(random.randint(-5,10))
-
+"""
         #コマンド選択
 
 
