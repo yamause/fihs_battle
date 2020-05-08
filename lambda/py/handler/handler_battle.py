@@ -15,43 +15,104 @@ class BattleIntentHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         return ask_utils.is_intent_name("BattleIntent")(handler_input)
-
+    
     def handle(self, handler_input):
-        
         # type: (HandlerInput) -> Response
-        attr = handler_input.attributes_manager.persistent_attributes
-        
-        #初期値の設定
+
+        pers_attr = handler_input.attributes_manager.persistent_attributes
+        sess_attr = handler_input.attributes_manager.session_attributes
+        sess_attr["round"] = 0
+
+        #クラス
         class char():
-            enemy_box = []
+            #味方初期値の設定
             def __init__(self,name,life,power,defense):
-                char.enemy_box.append(self)
                 self.name = name
                 self.life = life
                 self.power = power
-                self.defence = defense
+                self.defense = defense
 
-            def battle():
-                myfish_power = my_fish.power - enemy_box[num].defense + int(random.randint(-5,10))
-                emfish_power = enemy_box[num].power - my_fish.defense + int(random.randint(-5,10))
 
-        my_fish = char(my,attr["life"],attr["power"],attr["defence"])
+        class enemy_char(char):
+            #敵初期値の設定
+            enemy_box = []
+            def __init__(self,name,life,power,defense):
+                self().__init__(name,life,powerf,defense):
+                char.enemy_box.append(self)
+
+        class battle():
+            #バトルの処理
+            @classmethod
+            def battle(cls,enemy,my_cmd):
+                
+                # グー      ０ 
+                # チョキ    １ 
+                # パー      ２
+
+                #相手のジャンケンコマンド
+                cls.enemy_cmd = random.randint(0,2)
+                print(cls.enemy_cmd)
+
+                #ジャンケン処理
+                if cls.enemy_cmd == cls.my_cmd:
+                    winner = "aiko"
+                    print(winner)
+                elif (
+                    cls.enemy_cmd == 0 and cls.my_cmd == 1 or 
+                    cls.enemy_cmd == 1 and cls.my_cmd == 2 or 
+                    cls.enemy_cmd == 2 and cls.my_cmd == 0:
+                    )
+                    cls.winner = "enemy"
+                    print(cls.winner)
+                else :
+                    cls.winner = "my_fish"
+                    print(cls.winner)
+                
+                myfish_power = my_fish.power - enemy.defense + int(random.randint(-5,10))
+                emfish_power = enemy.power - my_fish.defense + int(random.randint(-5,10))
+                myfish_power = 0 if myfish_power <= 0 else myfish_power
+                emfish_power = 0 if emfish_power <= 0 else emfish_power
         
-        enemy_fish_1 = char("ザコテキ",100,100,100),
-        enemy_fish_2 = char("フツテキ",150,150,150),
-        enemy_fish_3 = char("ツヨテキ",200,200,200)
+                my_fish.life -= emfish_power
+                self.life -= myfish_power
+                print("--------------------------------------------")
+                print("●"+my_fish.name+ "に" + str(emfish_power) + "のダメージ!残りは"+str(my_fish.life)+"！")
+                print("●"+self.name + "に" + str(myfish_power) + "のダメージ!残りは"+str(self.life)+"！")
+                print("--------------------------------------------")
 
-        # 敵のランダム出現
-        num = random.randint(0,len(char.enemy_box) - 1)
-        print(char.enemy_box[num].name)
 
- """　charaクラスに組み込み     
+        class battle_2(battle):
 
-現行の処理だと結果にマイナス値が出た場合、相手のライフ回復しない？
 
-        myfish_power = my_fish.power - enemy_box[num].defense + int(random.randint(-5,10))
-        emfish_power = enemy_box[num].power - my_fish.defense + int(random.randint(-5,10))
-"""
+        if sess_attr["round"] == 0:
+            my_fish = char(my,pers_attr["life"],pers.attr["power"],pers.attr["defence"])
+            
+            enemy_fish_1 = char("ザコテキ",100,100,100),
+            enemy_fish_2 = char("フツテキ",150,150,150),
+            enemy_fish_3 = char("ツヨテキ",200,200,200)
+
+            # 敵のランダム出現
+            num = random.randint(0,len(char.enemy_box) - 1)
+            char.enemy_box[num].name
+
+            #ラウンド分岐
+            char.enemy_box[num].battle()
+
+        elif sess_attr["round"] == 1 :
+            my_fish = char(my,pers_attr["life"],pers.attr["power"],pers.attr["defence"])
+            #teki
+            char.enemy_box[num].battle_2()
+
+        elif sess_attr["round"] == 2 :
+            my_fish = char(my,pers_attr["life"],pers.attr["power"],pers.attr["defence"])
+            #teki
+            char.enemy_box[num].battle_2()
+            char.enemy_box[num].finish()
+
+
+
+
+
         #コマンド選択
 
 
@@ -64,12 +125,12 @@ class BattleIntentHandler(AbstractRequestHandler):
         #比較
         if mdown > edown:
             speak_output = ("おまえの負け")
-            attr["v_count"] += 1
-            attr["life"] -= emfish_power
+            pers_attr["v_count"] += 1
+            pers_attr["life"] -= emfish_power
 
         elif mdown < edown:
             speak_output = ("おまえの勝ち")
-            attr["life"] -= emfish_power
+            pers_attr["life"] -= emfish_power
         else:
             speak_output = ("おまえら強さ同じ")
 
@@ -79,7 +140,7 @@ class BattleIntentHandler(AbstractRequestHandler):
             bools = True
             speak_output = ("あなたのフィッシュのライフが0になり、死んでしまいました。また初めから遊んでください。")
         else:
-            handler_input.attributes_manager.persistent_attributes = attr
+            handler_input.attributes_manager.persistent_attributes = pers_attr
             handler_input.attributes_manager.save_persistent_attributes()
 
         return (
