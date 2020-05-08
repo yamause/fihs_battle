@@ -40,15 +40,3 @@ enemy_fish_3 = char("ツヨテキ",200,200,200)
 for i in range(10):
     num = random.randint(0,len(char.enemy_box) - 1)
     char.enemy_box[num].battle()
-
-def janken()
-    import random
-    rand = random.randint(0,2)
-    print(rand)
-    cmd = 1
-    if rand == cmd:
-        print("aiko")
-    elif rand == 0 and cmd == 1 or rand == 1 and cmd == 2 or rand == 2 and cmd == 0:
-        print("Lose")
-    else :
-        print("Win")
