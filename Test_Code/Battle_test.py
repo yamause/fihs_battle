@@ -7,10 +7,12 @@ logger = logging.getLogger(__name__)
 class char():
     #味方初期値の設定
     def __init__(self,name,life,power,defense):
-        self.name = name
-        self.life = life
-        self.power = power
-        self.defense = defense
+        self.status_dict = {
+            "name":name,
+            "life":life,
+            "power":power,
+            "defense":defense
+            }
 
 class enemy_char(char):
     #敵初期値の設定
@@ -46,7 +48,10 @@ class janken():
                 
 class calc():
     @classmethod
-    def calc_method(cls,winner,my_p,my_d,my_l,enemy,en_p,en_d,en_l):
+    def calc_method(cls,winner,myfish_status,enemy_status):
+        my_name,my_p,my_d,my_l = [i for i in myfish_status.values()]
+        en_name,en_p,en_d,en_l = [i for i in myfish_status.values()]
+
         if winner == "my_fish":
             my_p *= 1.5
         elif winner == "enemy":
@@ -100,35 +105,32 @@ def Test_code(pers_attr,sess_attr,slots_id):
         logger.debug(winner)
     
         # バトル計算
-        my_l,en_l = calc.calc_method(
+        my_fish.status_dict["life"],enemy_obj.status_dict["life"] = calc.calc_method(
                         winner,
-                        my_fish.life,
-                        my_fish.power,
-                        my_fish.defense,
-                        enemy_obj.name,
-                        enemy_obj.life,
-                        enemy_obj.power,
-                        enemy_obj.defense
+                        my_fish.status_dict,
+                        enemy_obj.status_dict,
                         )
-    
-        if my_l <= 0:
+        logger.debug(("{}").format(my_fish.status_dict))
+        logger.debug(("{}").format(enemy_obj.status_dict))
+
+        if my_fish.status_dict["life"] <= 0:
             speak_output = ("{}との戦いに敗北しました！").format(enemy_obj.name)
             bools = True
     
-        elif en_l <= 0:
+        elif enemy_obj.status_dict["life"] <= 0:
             pers_attr["v_count"] += 1
             speak_output = ("{}との戦いに勝利しました！").format(enemy_obj.name)
             bools = False
             
         else :
             sess_attr["round"] += 1
-            sess_attr["my_status"] = my_l
-            sess_attr["en_status"] = enemy_obj.life,enemy_obj.power,enemy_obj.defense
+            sess_attr["my_status"] = my_fish.status_dict
+            sess_attr["en_status"] = enemy_obj.status_dict
             speak_output = ("次の戦闘に移ります")
             bools = True
     
        
-        speak_output += ("自分のライフ:{},相手のライフ:{}".format(my_l,en_l))
+        speak_output += ("自分のライフ:{},相手のライフ:{}".format(my_fish.status_dict["life"],enemy_obj.status_dict["life"]))
         return(speak_output)
     
 
