@@ -1,6 +1,6 @@
 import random
 import logging
-formatter = '%(levelname)s : location:%(pathname)s(%(lineno)s) MSG__ %(message)s'
+formatter = '%(levelname)s : location:%(lineno)s MSG__ %(message)s'
 logging.basicConfig(level=logging.DEBUG,format=formatter)
 logger = logging.getLogger(__name__)
 
@@ -49,8 +49,13 @@ class janken():
 class calc():
     @classmethod
     def calc_method(cls,winner,myfish_status,enemy_status):
-        my_name,my_p,my_d,my_l = [i for i in myfish_status.values()]
-        en_name,en_p,en_d,en_l = [i for i in myfish_status.values()]
+        my_p = myfish_status["power"]
+        my_d = myfish_status["defense"]
+        my_l = myfish_status["life"]
+
+        en_p = enemy_status["power"]
+        en_d = enemy_status["defense"]
+        en_l = enemy_status["life"]
 
         if winner == "my_fish":
             my_p *= 1.5
@@ -114,33 +119,126 @@ def Test_code(pers_attr,sess_attr,slots_id):
         logger.debug(("{}").format(enemy_obj.status_dict))
 
         if my_fish.status_dict["life"] <= 0:
-            speak_output = ("{}との戦いに敗北しました！").format(enemy_obj.name)
+            pers_attr["life"] = my_fish.status_dict["life"]
+            speak_output = ("{}との戦いに敗北しました！").format(enemy_obj.status_dict["name"])
             bools = True
-    
+#        elif True:   
         elif enemy_obj.status_dict["life"] <= 0:
-            pers_attr["v_count"] += 1
-            speak_output = ("{}との戦いに勝利しました！").format(enemy_obj.name)
+            pers_attr["v_count"] = 1
+            pers_attr["life"] = my_fish.status_dict["life"]
+            speak_output = ("{}との戦いに勝利しました！").format(enemy_obj.status_dict["name"])
             bools = False
             
         else :
+            pers_attr["life"] = my_fish.status_dict["life"]
             sess_attr["round"] += 1
-            sess_attr["my_status"] = my_fish.status_dict
-            sess_attr["en_status"] = enemy_obj.status_dict
-            speak_output = ("次の戦闘に移ります")
+
+            if sess_attr["round"] >= 2:
+                sess_attr["my_status"] = my_fish.status_dict
+                sess_attr["en_status"] = enemy_obj.status_dict
+                speak_output = ("戦闘の終了")
+                bools = False
+
+            else:
+                sess_attr["my_status"] = my_fish.status_dict
+                sess_attr["en_status"] = enemy_obj.status_dict
+                speak_output = ("次の戦闘に移ります")
+                bools = False
+        
+
+        logger.debug(("sess_attr:{}").format(sess_attr))
+        logger.debug(("pers_attr:{}").format(pers_attr))
+
+        logger.debug("自分のライフ:{},相手のライフ:{}".format(my_fish.status_dict["life"],enemy_obj.status_dict["life"]))
+        return(speak_output,pers_attr,sess_attr,bools)
+        
+#--------------------------------------------------------
+def Test_code_second(pers_attr,sess_attr,slots_id):
+    
+    if sess_attr["round"] == 1:
+
+        my = "myfish"
+        my_fish = (
+            char(
+                my,
+                pers_attr["life"],
+                pers_attr["power"],
+                pers_attr["defence"]
+                    )
+        )
+        enemy_1 = enemy_char(
+            sess_attr["en_status"]["name"],
+            sess_attr["en_status"]["life"],
+            sess_attr["en_status"]["power"],
+            sess_attr["en_status"]["defense"]
+        )
+    
+        enemy_obj = enemy_char.enemy_box[0]
+
+        
+        # 相手と自分のコマンド入力
+        my_cmd = int(slots_id)
+        enemy_cmd = random.randint(0,2)
+        
+        winner = janken.main(my_cmd,enemy_cmd)
+        logger.debug(winner)
+    
+        # バトル計算
+        my_fish.status_dict["life"],enemy_obj.status_dict["life"] = calc.calc_method(
+                        winner,
+                        my_fish.status_dict,
+                        enemy_obj.status_dict,
+                        )
+        logger.debug(("{}").format(my_fish.status_dict))
+        logger.debug(("{}").format(enemy_obj.status_dict))
+
+        if my_fish.status_dict["life"] <= 0:
+            pers_attr["life"] = my_fish.status_dict["life"]
+            speak_output = ("{}との戦いに敗北しました！").format(enemy_obj.status_dict["name"])
             bools = True
-    
-       
-        speak_output += ("自分のライフ:{},相手のライフ:{}".format(my_fish.status_dict["life"],enemy_obj.status_dict["life"]))
-        return(speak_output)
-    
+#        elif True:   
+        elif enemy_obj.status_dict["life"] <= 0:
+            pers_attr["v_count"] = 1
+            pers_attr["life"] = my_fish.status_dict["life"]
+            speak_output = ("{}との戦いに勝利しました！").format(enemy_obj.status_dict["name"])
+            bools = False
+            
+        else :
+            pers_attr["life"] = my_fish.status_dict["life"]
+            sess_attr["round"] += 1
+
+            if sess_attr["round"] >= 2:
+                sess_attr["my_status"] = my_fish.status_dict
+                sess_attr["en_status"] = enemy_obj.status_dict
+                speak_output = ("戦闘の終了")
+                bools = False
+
+            else:
+                sess_attr["my_status"] = my_fish.status_dict
+                sess_attr["en_status"] = enemy_obj.status_dict
+                speak_output = ("次の戦闘に移ります")
+                bools = False
+
+        logger.debug(("sess_attr:{}").format(sess_attr))
+        logger.debug(("pers_attr:{}").format(pers_attr))
+
+        logger.debug("自分のライフ:{},相手のライフ:{}".format(my_fish.status_dict["life"],enemy_obj.status_dict["life"]))
+        return(speak_output,pers_attr,sess_attr,bools)
+  
 
 #--------------------------------------------------------
+if __name__ == "__main__":
+    # Persistent Attributes を変数に代入
+    pers_attr = {"life":100,"power":100,"defence":100,"v_count":1}
+    # Session Attributes を変数に代入
+    sess_attr = {}
+    # スロット値の取得
+    slots_id = 0
 
-# Persistent Attributes を変数に代入
-pers_attr = {"life":100,"power":100,"defence":100}
-# Session Attributes を変数に代入
-sess_attr = {}
-# スロット値の取得
-slots_id = 0
-
-logger.debug(("{}").format(Test_code(pers_attr,sess_attr,slots_id)))
+#    logger.debug(("{}").format(Test_code(pers_attr,sess_attr,slots_id)))
+    speak_output,pers_attr,sess_attr,bools = Test_code(pers_attr,sess_attr,slots_id)
+    logger.debug(("{}").format(speak_output))
+# 2nd
+    if speak_output == "次の戦闘に移ります":
+        speak_output,pers_attr,sess_attr,bools = Test_code_second(pers_attr,sess_attr,slots_id)
+        logger.debug(("{}").format(speak_output))
