@@ -48,7 +48,7 @@ class janken():
             winner = "my_fish"
             return(winner)
                 
-class calc():
+class DmageCalc():
     def __init__(self,winner,myfish_status,enemy_status):
         self.my_p = myfish_status["power"]
         self.my_d = myfish_status["defense"]
@@ -110,83 +110,70 @@ class result():
         sess_attr["round"] += 1
         return(speak_output,pers_attr,sess_attr,bools)
 #--------------------------------------------------------
-
-def Test_code(pers_attr,sess_attr,slots_id):
+class BattleInit:
     
-    sess_attr["round"] = 0
-    sess_attr["my_status"] = {}
-    sess_attr["en_status"] = {}
-    
-    my = "myfish"
-    
-    my_fish = char(
-            my,
-            pers_attr["life"],
-            pers_attr["power"],
-            pers_attr["defence"]
-                )
-
-    enemy_1 = enemy_char("ザコテキ",100,100,100)
-    enemy_2 = enemy_char("フツテキ",150,150,150)
-    enemy_3 = enemy_char("ツヨテキ",200,200,200)
-    
-                # 敵のランダム出現
-    num = random.randint(0,len(enemy_char.enemy_box) - 1)
-    enemy_obj = enemy_char.enemy_box[num]
-    
-                
-    
-    # 相手と自分のコマンド入力
-    my_cmd = int(slots_id)
-    enemy_cmd = random.randint(0,2)
+    def __init__(self,pers_attr,sess_attr):
+        self.pers_attr = pers_attr
+        self.sess_attr = sess_attr
         
-    winner = janken.main(my_cmd,enemy_cmd)
-
+        sess_attr["round"] = 0
+        sess_attr["my_status"] = {}
+        sess_attr["en_status"] = {}
+        
+        my = "myfish"
+        
+        self.my_fish = char(
+                my,
+                pers_attr["life"],
+                pers_attr["power"],
+                pers_attr["defence"]
+                    )
     
+        enemy_1 = enemy_char("ザコテキ",100,100,100)
+        enemy_2 = enemy_char("フツテキ",150,150,150)
+        enemy_3 = enemy_char("ツヨテキ",200,200,200)
+        
+                    # 敵のランダム出現
+        num = random.randint(0,len(enemy_char.enemy_box) - 1)
+        self.enemy_obj = enemy_char.enemy_box[num]
+        
+    def battleFunc(self,slots_id):
+        # 相手と自分のコマンド入力
+        my_cmd = int(slots_id)
+        enemy_cmd = random.randint(0,2)
+        
+        winner = janken.main(my_cmd,enemy_cmd)
     # バトル計算
-    tmp = calc(winner,my_fish.status_dict,enemy_obj.status_dict)
-    my_fish.status_dict["life"] = tmp.my_l
-    enemy_obj.status_dict["life"] = tmp.en_l
+        tmp = DmageCalc(winner,self.my_fish.status_dict,self.enemy_obj.status_dict)
+        self.my_fish.status_dict["life"] = tmp.my_l
+        self.enemy_obj.status_dict["life"] = tmp.en_l
                     
-    speak_output,pers_attr,sess_attr,bools = result.result_method(my_fish.status_dict,enemy_obj.status_dict,pers_attr,sess_attr)
-    return(speak_output,pers_attr,sess_attr,bools)
+        return(result.result_method(self.my_fish.status_dict,self.enemy_obj.status_dict,self.pers_attr,self.sess_attr))
     
 #--------------------------------------------------------
-def Test_code_second(pers_attr,sess_attr,slots_id):
-
-    my = "myfish"
-    my_fish = (
-        char(
-            my,
-            pers_attr["life"],
-            pers_attr["power"],
-            pers_attr["defence"]
-                )
-    )
-    enemy_1 = enemy_char(
-        sess_attr["en_status"]["name"],
-        sess_attr["en_status"]["life"],
-        sess_attr["en_status"]["power"],
-        sess_attr["en_status"]["defense"]
-    )
-
-    enemy_obj = enemy_char.enemy_box[0]
+class BattleSecond(BattleInit):
+    def __init__(self,pers_attr,sess_attr):
+        self.pers_attr = pers_attr
+        self.sess_attr = sess_attr
     
-    # 相手と自分のコマンド入力
-    my_cmd = int(slots_id)
-    enemy_cmd = random.randint(0,2)
-    winner = janken.main(my_cmd,enemy_cmd)
+        my = "myfish"
+        self.my_fish = (
+            char(
+                my,
+                pers_attr["life"],
+                pers_attr["power"],
+                pers_attr["defence"]
+                    )
+        )
+        self.enemy_1 = enemy_char(
+            sess_attr["en_status"]["name"],
+            sess_attr["en_status"]["life"],
+            sess_attr["en_status"]["power"],
+            sess_attr["en_status"]["defense"]
+        )
 
+        self.enemy_obj = enemy_char.enemy_box[0]
 
-    # バトル計算
-    tmp = calc(winner,my_fish.status_dict,enemy_obj.status_dict)
-    my_fish.status_dict["life"] = tmp.my_l
-    enemy_obj.status_dict["life"] = tmp.en_l
-    
-    speak_output,pers_attr,sess_attr,bools = result.result_method(my_fish.status_dict,enemy_obj.status_dict,pers_attr,sess_attr)
-    return(speak_output,pers_attr,sess_attr,bools)
-
- 
 #--------------------------------------------------------
 
 if __name__ == "__main__":
@@ -199,14 +186,17 @@ if __name__ == "__main__":
     # バトル回数の指定
     MAX_ROUND = 3
     
-    speak_output,pers_attr,sess_attr,bools = Test_code(pers_attr,sess_attr,slots_id)
+    battle_init     = BattleInit(pers_attr,sess_attr)
+    
+    
+    speak_output,pers_attr,sess_attr,bools = battle_init.battleFunc(slots_id)
+    
     logger.debug(("{}").format(speak_output))
     
     for i in range(MAX_ROUND):
         if MAX_ROUND <= sess_attr["round"] or not sess_attr["battle_cont"]:
             logger.debug(("{}").format("ブレイク"))
-            speak_output
             break
-        
-        speak_output,pers_attr,sess_attr,bools = Test_code_second(pers_attr,sess_attr,slots_id)
+        battle_second   = BattleSecond(pers_attr,sess_attr)
+        speak_output,pers_attr,sess_attr,bools = battle_second.battleFunc(slots_id)
         logger.debug(("{}").format(speak_output))
