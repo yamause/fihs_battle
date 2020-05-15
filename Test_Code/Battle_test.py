@@ -9,7 +9,7 @@ formatter = '%(levelname)s : location:%(lineno)s MSG__ %(message)s'
 logging.basicConfig(level=logging.DEBUG,format=formatter)
 logger = logging.getLogger(__name__)
 
-class char():
+class CharCreate():
     #味方初期値の設定
     def __init__(self,name,life,power,defense):
         self.status_dict = {
@@ -19,12 +19,12 @@ class char():
             "defense":defense
             }
 
-class enemy_char(char):
+class EnemyCharCreate(CharCreate):
     #敵初期値の設定
     enemy_box = []
     def __init__(self,name,life,power,defense):
         super().__init__(name,life,power,defense)
-        enemy_char.enemy_box.append(self)
+        EnemyCharCreate.enemy_box.append(self)
 
 class janken():
     @classmethod
@@ -122,20 +122,20 @@ class BattleInit:
         
         my = "myfish"
         
-        self.my_fish = char(
+        self.my_fish = CharCreate(
                 my,
                 pers_attr["life"],
                 pers_attr["power"],
                 pers_attr["defence"]
                     )
     
-        enemy_1 = enemy_char("ザコテキ",100,100,100)
-        enemy_2 = enemy_char("フツテキ",150,150,150)
-        enemy_3 = enemy_char("ツヨテキ",200,200,200)
+        enemy_1 = EnemyCharCreate("ザコテキ",100,100,100)
+        enemy_2 = EnemyCharCreate("フツテキ",150,150,150)
+        enemy_3 = EnemyCharCreate("ツヨテキ",200,200,200)
         
                     # 敵のランダム出現
-        num = random.randint(0,len(enemy_char.enemy_box) - 1)
-        self.enemy_obj = enemy_char.enemy_box[num]
+        num = random.randint(0,len(EnemyCharCreate.enemy_box) - 1)
+        self.enemy_obj = EnemyCharCreate.enemy_box[num]
         
     def battleFunc(self,slots_id):
         # 相手と自分のコマンド入力
@@ -158,21 +158,21 @@ class BattleSecond(BattleInit):
     
         my = "myfish"
         self.my_fish = (
-            char(
+            CharCreate(
                 my,
                 pers_attr["life"],
                 pers_attr["power"],
                 pers_attr["defence"]
                     )
         )
-        self.enemy_1 = enemy_char(
+        self.enemy_1 = EnemyCharCreate(
             sess_attr["en_status"]["name"],
             sess_attr["en_status"]["life"],
             sess_attr["en_status"]["power"],
             sess_attr["en_status"]["defense"]
         )
 
-        self.enemy_obj = enemy_char.enemy_box[0]
+        self.enemy_obj = EnemyCharCreate.enemy_box[0]
 
 #--------------------------------------------------------
 
