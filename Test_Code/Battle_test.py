@@ -1,5 +1,7 @@
 # coding: utf-8
 # Your code here!
+# coding: utf-8
+# Your code here!
 
 import random
 import logging
