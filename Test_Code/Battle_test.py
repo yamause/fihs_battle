@@ -57,7 +57,10 @@ class DmageCalc():
         self.en_p = enemy_status["power"]
         self.en_d = enemy_status["defense"]
         self.en_l = enemy_status["life"]
-        
+
+        self.enemyDamege = 0
+        self.myfishDamege = 0        
+
         self.winner = winner
         
         self.calc_method()
@@ -66,16 +69,16 @@ class DmageCalc():
         
         self.CriticalCalc()
         
-        myfish_power = self.my_p - self.en_d + random.randint(-5,10)
-        emfish_power = self.en_p - self.my_d + random.randint(-5,10)
-        myfish_power = 0 if myfish_power <= 0 else myfish_power
-        emfish_power = 0 if emfish_power <= 0 else emfish_power
-        
-        self.my_l -= emfish_power
-        self.en_l -= myfish_power
-        
-        return(int(self.my_l),int(self.en_l))
-        
+        self.enemyDamege = self.my_p - self.en_d + random.randint(-5,10)
+        self.myfishDamege = self.en_p - self.my_d + random.randint(-5,10)
+        self.enemyDamege = 0 if self.enemyDamege <= 0 else self.enemyDamege
+        self.myfishDamege = 0 if self.myfishDamege <= 0 else self.myfishDamege
+
+        self.myfishDamege = int(self.myfishDamege)
+        self.enemyDamege  = int(self.enemyDamege)
+        self.my_l   -= self.myfishDamege
+        self.en_l   -= self.enemyDamege
+    
     def CriticalCalc(self):
         if self.winner == "my_fish":
             self.my_p *= 1.5
@@ -85,19 +88,21 @@ class DmageCalc():
         
 class result():
     @classmethod
-    def result_method(cls,my_status,en_status,pers_attr,sess_attr):
+    def result_method(cls,my_status,en_status,pers_attr,sess_attr,myfishDamege,enemyDamege):
+        print(sess_attr)
+        battleText = ("{}に{}のダメージ！自分に{}のダメージ！").format(en_status["name"],enemyDamege,myfishDamege)
         
         if my_status["life"] <= 0:
             pers_attr["life"] = my_status["life"]
             sess_attr["battle_cont"] = False
-            speak_output = ("{}との戦いに敗北しました！").format(en_status["name"])
+            speak_output = ("{}との戦いに敗北しました！").format(en_status["name"],battleText)
             bools = True
             
         elif en_status["life"] <= 0:
             pers_attr["v_count"] = 1
             pers_attr["life"] = my_status["life"]
             sess_attr["battle_cont"] = False
-            speak_output = ("{}との戦いに勝利しました！").format(en_status["name"])
+            speak_output = ("{}との戦いに勝利しました！").format(en_status["name"],battleText)
             bools = False
             
         else :
@@ -105,9 +110,11 @@ class result():
             sess_attr["my_status"] = my_status
             sess_attr["en_status"] = en_status
             sess_attr["battle_cont"] = True
-            speak_output = ("次の戦闘に移ります")
+            speak_output = ("{}次の戦闘に移ります").format(battleText)
             bools = False
-        sess_attr["round"] += 1
+            sess_attr["round"] += 1
+            if sess_attr["round"] >= 3 :
+                speak_output = ("{}決着がつかなかった。戦闘を終了します。").format(battleText)
         return(speak_output,pers_attr,sess_attr,bools)
 #--------------------------------------------------------
 class BattleInit:
@@ -143,12 +150,12 @@ class BattleInit:
         enemy_cmd = random.randint(0,2)
         
         winner = janken.main(my_cmd,enemy_cmd)
-    # バトル計算
+        # バトル計算
         tmp = DmageCalc(winner,self.my_fish.status_dict,self.enemy_obj.status_dict)
         self.my_fish.status_dict["life"] = tmp.my_l
         self.enemy_obj.status_dict["life"] = tmp.en_l
                     
-        return(result.result_method(self.my_fish.status_dict,self.enemy_obj.status_dict,self.pers_attr,self.sess_attr))
+        return(result.result_method(self.my_fish.status_dict,self.enemy_obj.status_dict,self.pers_attr,self.sess_attr,tmp.myfishDamege,tmp.enemyDamege))
     
 #--------------------------------------------------------
 class BattleSecond(BattleInit):

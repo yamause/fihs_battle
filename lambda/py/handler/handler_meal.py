@@ -20,15 +20,26 @@ class MealIntentHandler(AbstractRequestHandler):
 
         attr = handler_input.attributes_manager.persistent_attributes
 
-        #ライフを回復する
-        life_healing = int(30)
-        attr["life"] += life_healing
-        status = attr["life"]
+        Life = attr["life"]
+        MaxLife = attr["max_life"]
 
-        speak_output = ("ライフが{}回復したよ。現在のライフは{}です").format(life_healing,status)
+        if Life >= MaxLife:
+            speak_output = "もうお腹いっぱいで食べられないみたい"
 
-        handler_input.attributes_manager.persistent_attributes = attr
-        handler_input.attributes_manager.save_persistent_attributes()
+        else:    
+            #ライフを回復する
+            life_healing = int(30)
+            Life += life_healing
+            Life = MaxLife if Life >= MaxLife else Life 
+            
+            status = Life
+            real_healing = Life - attr["life"]
+
+            speak_output = ("ライフが{}回復したよ。現在のライフは{}です").format(real_healing,status)
+
+            attr["life"] = Life
+            handler_input.attributes_manager.persistent_attributes = attr
+            handler_input.attributes_manager.save_persistent_attributes()
 
         return (
             handler_input.response_builder

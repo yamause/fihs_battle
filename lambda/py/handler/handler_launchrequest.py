@@ -32,10 +32,12 @@ class LaunchRequestHandler(AbstractRequestHandler):
                 fish_condition = "調子は普通"
             elif condition_seed > 0.5:
                 fish_condition = "ちょっと疲れてる"
+            elif condition_seed <= 0:
+                fish_condition = "じっと動かない...とても具合が悪い"
             else:
                 fish_condition = "とても疲れてる"
 
-            speak_output = ("こんにちは！フィッシュバトルへようこそ！あなたのフィッシュは{}みたいです。").format(fish_condition)
+            speak_output = ("こんにちは！フィッシュバトルへようこそ！あなたのフィッシュは{}みたい。").format(fish_condition)
         else:
             attr["max_life"] = 100
             attr["life"] = 100

@@ -46,15 +46,9 @@ class TrainingIntentHandler(AbstractRequestHandler):
             comment = "ライフの最大値"
 
 
-
-        if attr["life"] <= 0 :
-            handler_input.attributes_manager.delete_persistent_attributes()
-            bools = True
-            speak_output = ("あなたのフィッシュのライフが0になり、死んでしまいました。また初めから遊んでください。")
-        else:
-            speak_output = ("{}が{}上がったよ。現在の{}は{}です").format(comment,status_add,comment,status)
-            handler_input.attributes_manager.persistent_attributes = attr
-            handler_input.attributes_manager.save_persistent_attributes()  
+        speak_output = ("{}が{}上がったよ。現在の{}は{}です").format(comment,status_add,comment,status)
+        handler_input.attributes_manager.persistent_attributes = attr
+        handler_input.attributes_manager.save_persistent_attributes()  
                   
         return (
             handler_input.response_builder

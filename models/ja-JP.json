@@ -23,13 +23,13 @@
                     "name": "MealIntent",
                     "samples": [
                         "食事",
+                        "ごはん",
                         "ご飯を食べさせたい",
-                        "体力を回復して",
+                        "体力を回復して"
                     ]
                 },
                 {
                     "name": "BattleIntent",
-                    "slots": [],
                     "samples": [
                         "戦う",
                         "勝負",
@@ -37,6 +37,18 @@
                         "バトル"
                     ]
                 },
+                {
+                "name": "JankenIntent",
+                "slots": [
+                    {
+                        "name": "command",
+                        "type": "janken_slot"
+                    }
+                ],
+                "samples": [
+                    "{command}"
+                ]
+            },
                 {
                     "name": "DataResetIntent",
                     "slots": [
@@ -96,6 +108,38 @@
                             "id": "life",
                             "name": {
                                 "value": "ライフ"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "janken_slot",
+                    "values": [
+                        {
+                            "id": "0",
+                            "name": {
+                                "value": "0",
+                                "synonyms": [
+                                    "グー"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "1",
+                                "synonyms": [
+                                    "チョキ"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "2",
+                                "synonyms": [
+                                    "パー"
+                                ]
                             }
                         }
                     ]
