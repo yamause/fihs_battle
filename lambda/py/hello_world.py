@@ -19,8 +19,8 @@ s3_adapter = S3Adapter(bucket_name="fishbattle")
 # 各種ハンドラのインポート
 from handler import handler_launchrequest
 from handler import handler_Dead
-from handler import handler_janken
 from handler import handler_battle
+from handler import handler_janken
 from handler import handler_training
 from handler import handler_meal
 from handler import handler_datareset
@@ -44,8 +44,8 @@ sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 
 sb.add_request_handler(handler_launchrequest.LaunchRequestHandler())
 sb.add_request_handler(handler_Dead.DeadIntentHandler())
-sb.add_request_handler(handler_janken.JankenIntentHandler())
 sb.add_request_handler(handler_battle.BattleIntentHandler())
+sb.add_request_handler(handler_janken.JankenIntentHandler())
 sb.add_request_handler(handler_training.TrainingIntentHandler())
 sb.add_request_handler(handler_meal.MealIntentHandler())
 sb.add_request_handler(handler_statuscheck.StatusCheckHandler())
