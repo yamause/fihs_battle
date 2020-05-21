@@ -45,12 +45,11 @@ sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 sb.add_request_handler(handler_launchrequest.LaunchRequestHandler())
 sb.add_request_handler(handler_Dead.DeadIntentHandler())
 sb.add_request_handler(handler_battle.BattleIntentHandler())
-sb.add_request_handler(handler_janken.JankenIntentHandler())
 sb.add_request_handler(handler_training.TrainingIntentHandler())
 sb.add_request_handler(handler_meal.MealIntentHandler())
 sb.add_request_handler(handler_statuscheck.StatusCheckHandler())
 sb.add_request_handler(handler_datareset.DataResetHandler())
-
+sb.add_request_handler(handler_janken.JankenIntentHandler())
 
 sb.add_request_handler(handler_helpintent.HelpIntentHandler())
 sb.add_request_handler(handler_cancelorstopintent.CancelOrStopIntentHandler())
