@@ -1,4 +1,4 @@
-skill_env/
-.ask/*
+.venv/
+ask/*
 lambda/py/lambda_upload/*
 lambda/py/.env
