@@ -1,1 +1,0 @@
-S3_BUCKET = "Write Your Amazon S3 bucket name here"
