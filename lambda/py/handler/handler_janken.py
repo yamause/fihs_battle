@@ -17,7 +17,7 @@ class JankenIntentHandler(AbstractRequestHandler):
 
         # Session Attributes を変数に代入
         sess_attr = handler_input.attributes_manager.session_attributes
-        gameStartBools = sess_attr["JankenMode"]
+        gameStartBools = sess_attr["gameMode"] == "janken"
 
         return gameStartBools
 
@@ -92,27 +92,29 @@ class JankenIntentHandler(AbstractRequestHandler):
 
                 if my_status["life"] <= 0:
                     pers_attr["life"] = my_status["life"]
-                    sess_attr["battle_cont"] = False
                     speak_output = ("{}{}との戦いに敗北しました！").format(battleText,en_status["name"])
-                    bools = True
+                    sess_attr["gameMode"] == "normal"
+                    bools = False
 
                 elif en_status["life"] <= 0:
                     pers_attr["v_count"] += 1
                     pers_attr["life"] = my_status["life"]
-                    sess_attr["battle_cont"] = False
                     speak_output = ("{}{}との戦いに勝利しました！").format(battleText,en_status["name"])
+                    sess_attr["gameMode"] == "normal"
                     bools = False
 
                 else :
                     pers_attr["life"] = my_status["life"]
                     sess_attr["my_status"] = my_status
                     sess_attr["en_status"] = en_status
-                    sess_attr["battle_cont"] = True
                     speak_output = ("{}次の戦闘に移ります").format(battleText)
                     bools = False
                     sess_attr["round"] += 1
+
                     if sess_attr["round"] >= 3 :
                         speak_output = ("{}決着がつかなかった。戦闘を終了します。").format(battleText)
+                        sess_attr["gameMode"] == "normal"
+
                 return(speak_output,pers_attr,sess_attr,bools)
 #--------------------------------------------------------
         class BattleInit:

@@ -19,11 +19,15 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        attr = handler_input.attributes_manager.persistent_attributes
+        pers_attr = handler_input.attributes_manager.persistent_attributes
+        sess_attr = handler_input.attributes_manager.session_attributes
 
-        if attr :
-            life = attr["life"]
-            max_life = attr["max_life"]
+        sess_attr["gameMode"] = "normal" 
+
+
+        if pers_attr :
+            life = pers_attr["life"]
+            max_life = pers_attr["max_life"]
             condition_seed =  life / max_life
             
             if condition_seed == 1:
@@ -39,11 +43,11 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
             speak_output = ("こんにちは！フィッシュバトルへようこそ！あなたのフィッシュは{}みたい。").format(fish_condition)
         else:
-            attr["max_life"] = 100
-            attr["life"] = 100
-            attr["power"] = 100
-            attr["defense"] = 100
-            attr["v_count"] = 0
+            pers_attr["max_life"] = 100
+            pers_attr["life"] = 100
+            pers_attr["power"] = 100
+            pers_attr["defense"] = 100
+            pers_attr["v_count"] = 0
 
             handler_input.attributes_manager.persistent_attributes = attr
             handler_input.attributes_manager.save_persistent_attributes()
