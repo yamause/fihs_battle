@@ -17,7 +17,7 @@ class JankenIntentHandler(AbstractRequestHandler):
 
         # Session Attributes を変数に代入
         sess_attr = handler_input.attributes_manager.session_attributes
-        gameStartBools = sess_attr["JankenMode"]
+        gameStartBools = sess_attr["gameMode"] == "janken"
 
         return gameStartBools
 
@@ -113,6 +113,7 @@ class JankenIntentHandler(AbstractRequestHandler):
                     sess_attr["round"] += 1
                     if sess_attr["round"] >= 3 :
                         speak_output = ("{}決着がつかなかった。戦闘を終了します。").format(battleText)
+                        sess_attr["gamaMode"] = "normal"
                 return(speak_output,pers_attr,sess_attr,bools)
 #--------------------------------------------------------
         class BattleInit:

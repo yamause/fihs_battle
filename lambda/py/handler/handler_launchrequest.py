@@ -20,6 +20,9 @@ class LaunchRequestHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         attr = handler_input.attributes_manager.persistent_attributes
+        sess_attr = handler_input.attributes_manager.session_attributes
+
+        sess_attr["gameMode"] = "normal" 
 
         if attr :
             life = attr["life"]

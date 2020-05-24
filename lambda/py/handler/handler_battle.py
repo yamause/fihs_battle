@@ -67,7 +67,7 @@ class BattleIntentHandler(AbstractRequestHandler):
         sess_attr["my_status"] = char.my_fish.status_dict
         sess_attr["en_status"] = char.enemy_obj.status_dict
 
-        sess_attr["JankenMode"] = True 
+        sess_attr["gameMode"] = "janken"
         sess_attr["round"] = 0
         print (sess_attr)
         speak_output = ("{}が現れた！戦闘を開始します、グー、チョキ、パーから一つ選んでください。").format(char.enemy_obj.status_dict["name"])
