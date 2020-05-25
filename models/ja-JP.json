@@ -29,6 +29,15 @@
                     ]
                 },
                 {
+                    "name": "DebugIntent",
+                    "samples": [
+                        "デバッグ",
+                        "デバッグモード",
+                        "テスト",
+                        "テストして"
+                    ]
+                },
+                {
                     "name": "BattleIntent",
                     "samples": [
                         "戦う",

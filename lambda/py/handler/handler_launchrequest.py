@@ -49,7 +49,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
             pers_attr["defense"] = 100
             pers_attr["v_count"] = 0
 
-            handler_input.attributes_manager.persistent_attributes = attr
+            handler_input.attributes_manager.persistent_attributes = pers_attr
             handler_input.attributes_manager.save_persistent_attributes()
             speak_output = ("初めまして！フィッシュバトルへようこそ！この子があなたの新しいフィッシュです。")
             
