@@ -1,4 +1,10 @@
 .venv/
+<<<<<<< HEAD
 ask/*
 lambda/py/lambda_upload/*
 lambda/py/env.py
+=======
+.ask/*
+lambda/py/lambda_upload/*
+lambda/py/env_yottan.py
+>>>>>>> yottan

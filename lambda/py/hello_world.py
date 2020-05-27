@@ -5,6 +5,10 @@
 # session persistence, api calls, and more.
 # This sample is built using the handler classes approach in skill builder.
 import logging
+<<<<<<< HEAD
+=======
+import env
+>>>>>>> yottan
 import ask_sdk_core.utils as ask_utils
 import env
 from ask_sdk_core.handler_input import HandlerInput
@@ -14,7 +18,10 @@ from ask_sdk_model import Response
 # S3
 from ask_sdk_core.skill_builder import CustomSkillBuilder
 from ask_sdk_s3.adapter import S3Adapter
+<<<<<<< HEAD
 
+=======
+>>>>>>> yottan
 s3_adapter = S3Adapter(bucket_name=env.S3_BUCKET)
 
 # 各種ハンドラのインポート
