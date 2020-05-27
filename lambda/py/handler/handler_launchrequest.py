@@ -19,15 +19,8 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-<<<<<<< HEAD
         pers_attr = handler_input.attributes_manager.persistent_attributes
         sess_attr = handler_input.attributes_manager.session_attributes
-=======
-        attr = handler_input.attributes_manager.persistent_attributes
-        sess_attr = handler_input.attributes_manager.session_attributes
-
-        sess_attr["gameMode"] = "normal" 
->>>>>>> yottan
 
         sess_attr["gameMode"] = "normal" 
 

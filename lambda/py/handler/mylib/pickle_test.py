@@ -1,4 +1,3 @@
-import status
 import pickle
 
 class charCreate:
@@ -10,5 +9,5 @@ class charCreate:
 with open('class.pickle', mode='rb') as f:
     charcter = pickle.load(f)
 
-print(charcter.life.var_param)
+print(charcter.life.var_param.param_up)
     
