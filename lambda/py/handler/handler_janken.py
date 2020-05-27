@@ -113,12 +113,7 @@ class JankenIntentHandler(AbstractRequestHandler):
 
                     if sess_attr["round"] >= 3 :
                         speak_output = ("{}決着がつかなかった。戦闘を終了します。").format(battleText)
-<<<<<<< HEAD
-                        sess_attr["gameMode"] == "normal"
-
-=======
                         sess_attr["gamaMode"] = "normal"
->>>>>>> yottan
                 return(speak_output,pers_attr,sess_attr,bools)
 #--------------------------------------------------------
         class BattleInit:
