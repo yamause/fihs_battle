@@ -1,0 +1,14 @@
+{
+    "my_status":{
+        "max_life":0,
+        "life":0,
+        "max_pawer":0,
+        "power":0,
+        "max_defence":0,
+        "defence":0
+    },
+    "record":{
+        "v_count":0,
+        "l_count":0
+    }
+}

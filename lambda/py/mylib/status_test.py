@@ -3,9 +3,9 @@ import pickle
 
 class charCreate:
     def __init__(self):
-        self.life = status.BaseStatus(300,300)
-        self.power = status.BaseStatus(100,100)
-        self.defence = status.BaseStatus(100,100)
+        self.life = status.LifeStatus(300,300)
+        self.power = status.PowerStatus(100,100)
+        self.defence = status.DefenceStatus(100,100)
 
 if __name__ == "__main__":
     

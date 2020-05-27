@@ -3,7 +3,7 @@
 
 class BaseStatus:
     def __init__(self,basic_param,var_param):
-        self.MAX_PARAM      = 999
+        self.LIMIT_PARAM      = 999
         self.MIN_PARAM      = 0
         self.basic_param    = basic_param
         self.var_param      = var_param
@@ -11,7 +11,7 @@ class BaseStatus:
     def basic_param_up(self,increase_val):
         tmp_param = self.basic_param
         self.basic_param += increase_val
-        self.basic_param = self.MAX_PARAM if self.basic_param > self.MAX_PARAM else self.basic_param
+        self.basic_param = self.LIMIT_PARAM if self.basic_param > self.LIMIT_PARAM else self.basic_param
         result_val = self.basic_param - tmp_param
         return(result_val)
         
@@ -39,14 +39,14 @@ class BaseStatus:
         return(result_val)
         
 
-# class life(status):
-#     pass
+class LifeStatus(BaseStatus):
+    pass
 
-# class power(status):
-#     pass
+class PowerStatus(BaseStatus):
+    pass
 
-# class Defence(status):
-#     pass
+class DefenceStatus(BaseStatus):
+    pass
 
 if __name__ == "__main__":
 
