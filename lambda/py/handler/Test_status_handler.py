@@ -26,7 +26,13 @@ class BattleIntentHandler(AbstractRequestHandler):
                 self.power = status.PowerStatus(basic_power,var_power)
                 self.defence = status.DefenceStatus(basic_defence,var_defence)
 
-            char = charCreate()
+            char = charCreate(100,100,100,100,100,100)
+            char.life.var_param_down(32)
+            char.life.commit_param
+            
+            print(pers_attr)
+
+            speak_output = "テストを実行したよ。Cloud Watch を確認してね"
 
         return(
                 handler_input.response_builder

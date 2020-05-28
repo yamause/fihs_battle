@@ -19,6 +19,7 @@ s3_adapter = S3Adapter(bucket_name=env.S3_BUCKET)
 
 # 各種ハンドラのインポート
 from handler import handler_launchrequest
+from handler import Test_status_handler
 from handler import debug_mode
 from handler import handler_Dead
 from handler import handler_battle
@@ -45,6 +46,7 @@ sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 
 
 sb.add_request_handler(handler_launchrequest.LaunchRequestHandler())
+sb.add_request_handler(Test_status_handler.TestIntent())
 sb.add_request_handler(debug_mode.DebugIntentHandler())
 sb.add_request_handler(handler_Dead.DeadIntentHandler())
 sb.add_request_handler(handler_battle.BattleIntentHandler())

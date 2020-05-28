@@ -21,7 +21,7 @@ class BaseStatus:
         result_val = tmp_param - self.basic_param
         return(result_val)
         
-    def param_up(self,increase_val):
+    def var_param_up(self,increase_val):
         tmp_param = self.var_param
         self.var_param += increase_val
         self.var_param = self.basic_param if self.var_param > self.basic_param else self.var_param
@@ -29,7 +29,7 @@ class BaseStatus:
     
         return(result_val)
         
-    def param_down(self,increase_val):
+    def var_param_down(self,increase_val):
         tmp_param = self.var_param
         self.var_param -= increase_val
         self.var_param = self.MIN_PARAM if self.var_param < self.MIN_PARAM else self.var_param
