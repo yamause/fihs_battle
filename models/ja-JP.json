@@ -29,6 +29,12 @@
                     ]
                 },
                 {
+                    "name": "TestIntent",
+                    "samples": [
+                        "バナナ"
+                    ]
+                },
+                {
                     "name": "DebugIntent",
                     "samples": [
                         "デバッグ",
