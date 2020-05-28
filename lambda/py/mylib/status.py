@@ -1,5 +1,4 @@
-# coding: utf-8
-# Your code here!
+from ask_sdk_core.handler_input import HandlerInput
 
 class BaseStatus:
     def __init__(self,basic_param,var_param):
@@ -7,7 +6,7 @@ class BaseStatus:
         self.MIN_PARAM      = 0
         self.basic_param    = basic_param
         self.var_param      = var_param
-        
+
     def basic_param_up(self,increase_val):
         tmp_param = self.basic_param
         self.basic_param += increase_val
@@ -40,37 +39,31 @@ class BaseStatus:
         
 
 class LifeStatus(BaseStatus):
-    pass
+    def commit_param(self):
+        pers_attr = handler_input.attributes_manager.persistent_attributes
+        my_status = pers_attr["my_status"]
+        my_status["basic_life"] = self.basic_param
+        my_status["var_life"] = self.var_param
+        handler_input.attributes_manager.save_persistent_attributes()
+
+        return(my_status)
 
 class PowerStatus(BaseStatus):
-    pass
+    def commit_param(self):
+        pers_attr = handler_input.attributes_manager.persistent_attributes
+        my_status = pers_attr["my_status"]
+        my_status["basic_power"] = self.basic_param
+        my_status["var_power"] = self.var_param
+        handler_input.attributes_manager.save_persistent_attributes()
+
+        return(my_status)
 
 class DefenceStatus(BaseStatus):
-    pass
+    def commit_param(self):
+        pers_attr = handler_input.attributes_manager.persistent_attributes
+        my_status = pers_attr["my_status"]
+        my_status["basic_defence"] = self.basic_param
+        my_status["var_defence"] = self.var_param
+        handler_input.attributes_manager.save_persistent_attributes()
 
-if __name__ == "__main__":
-
-    user=BaseStatus(100,80)
-    print(user.basic_param)
-    print(user.var_param)
-    print("-----------------------")
-    print("パラメータUP     ：{}".format(user.param_up(8)))
-    print("MAXパラメータ    ：{}".format(user.basic_param))
-    print("パラメータ       ：{}".format(user.var_param))
-    print("-----------------------")
-    print("パラメータUP     ：{}".format(user.param_up(20)))
-    print("MAXパラメータ    ：{}".format(user.basic_param))
-    print("パラメータ       ：{}".format(user.var_param))
-    print("-----------------------")
-    print("パラメータDown   ：{}".format(user.param_down(10)))
-    print("MAXパラメータ    ：{}".format(user.basic_param))
-    print("パラメータ       ：{}".format(user.var_param))
-    print("-----------------------")
-    print("パラメータUP     ：{}".format(user.basic_param_up(10)))
-    print("MAXパラメータ    ：{}".format(user.basic_param))
-    print("パラメータ       ：{}".format(user.var_param))
-    print("-----------------------")
-    print("パラメータUP     ：{}".format(user.basic_param_up(1000)))
-    print("MAXパラメータ    ：{}".format(user.basic_param))
-    print("パラメータ       ：{}".format(user.var_param))
-    print("-----------------------")
+        return(my_status)
