@@ -39,7 +39,7 @@
         },
         "interactionModel": {
           "ja-JP": {
-            "eTag": "0cf240ee3aeef3e8412168ce58c3c7bc"
+            "eTag": "ce3172943c57da2bfd37976a5c83984d"
           }
         },
         "lambda": [
@@ -52,7 +52,7 @@
             "codeUri": "lambda/py/lambda_upload",
             "functionName": "ask-custom-fish_battle-default",
             "handler": "hello_world.handler",
-            "revisionId": "9b9d0639-30a5-4896-941d-99b8c459d8cd",
+            "revisionId": "8ae6967c-1da4-42d0-942f-65a85b7dc45e",
             "runtime": "python3.7"
           }
         ]

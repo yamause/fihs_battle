@@ -46,7 +46,7 @@ sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 
 
 sb.add_request_handler(handler_launchrequest.LaunchRequestHandler())
-sb.add_request_handler(Test_status_handler.TestIntent())
+sb.add_request_handler(Test_status_handler.TestIntentHandler())
 sb.add_request_handler(debug_mode.DebugIntentHandler())
 sb.add_request_handler(handler_Dead.DeadIntentHandler())
 sb.add_request_handler(handler_battle.BattleIntentHandler())
