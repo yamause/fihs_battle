@@ -1,19 +1,17 @@
-from ask_sdk_core.dispatch_components import AbstractRequestHandler
-from ask_sdk_core import utils as ask_utils
-from ask_sdk_core.handler_input import HandlerInput
-from ask_sdk_model import Response
 
 class BaseStatus:
-    def __init__(self,basic_param,var_param):
-        self.LIMIT_PARAM      = 999
-        self.MIN_PARAM      = 0
-        self.basic_param    = basic_param
-        self.var_param      = var_param
+    def __init__(self,basic_param,var_param,training_param):
+        self.LIMIT_PARAM            = 999
+        self.LOWER_LIMIT_PARAM      = 0
+        self.basic_param            = basic_param
+        self.var_param              = var_param
+        self.training_param         = training_param
+        self.max_param              = basic_param + training_param
 
     def basic_param_up(self,increase_val):
         tmp_param = self.basic_param
         self.basic_param += increase_val
-        self.basic_param = self.LIMIT_PARAM if self.basic_param > self.LIMIT_PARAM else self.basic_param
+        self.basic_param = self.LIMIT_PARAM if self.max_param > self.LIMIT_PARAM else self.basic_param
         result_val = self.basic_param - tmp_param
      
         return(result_val)
@@ -21,7 +19,7 @@ class BaseStatus:
     def basic_param_down(self,increase_val):
         tmp_param = self.basic_param
         self.basic_param -= increase_val
-        self.basic_param = self.MIN_PARAM if self.basic_param > self.MIN_PARAM else self.basic_param
+        self.basic_param = self.MIN_PARAM if self.max_param > self.MIN_PARAM else self.basic_param
         result_val = tmp_param - self.basic_param
      
         return(result_val)
@@ -45,24 +43,27 @@ class BaseStatus:
 
 class LifeStatus(BaseStatus):
     def commit_param(self,status_dict):
-        my_status = status_dict["my_status"]
-        my_status["basic_life"] = self.basic_param
-        my_status["var_life"] = self.var_param
+        my_status = status_dict["parameter"]["my_status"]
+        my_status["basic_status"]["basic_life"]         = self.basic_param
+        my_status["var_status"]["var_life"]             = self.var_param
+        my_status["training_status"]["training_life"]   = self.training_param
     
         return(my_status)
 
 class PowerStatus(BaseStatus):
     def commit_param(self,status_dict):
-        my_status = status_dict["my_status"]
-        my_status["basic_power"] = self.basic_param
-        my_status["var_power"] = self.var_param
-      
+        my_status = status_dict["parameter"]["my_status"]
+        my_status["basic_status"]["basic_power"]        = self.basic_param
+        my_status["var_status"]["var_power"]            = self.var_param
+        my_status["training_status"]["training_power"]  = self.training_param
+
         return(my_status)
 
 class DefenceStatus(BaseStatus):
     def commit_param(self,status_dict):
-        my_status = status_dict["my_status"]
-        my_status["basic_defence"] = self.basic_param
-        my_status["var_defence"] = self.var_param
-       
+        my_status = status_dict["parameter"]["my_status"]
+        my_status["basic_status"]["basic_defence"]       = self.basic_param
+        my_status["var_status"]["var_defence"]           = self.var_param
+        my_status["training_status"]["training_defence"] = self.training_param
+
         return(my_status)

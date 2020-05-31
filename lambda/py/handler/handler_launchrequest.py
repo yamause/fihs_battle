@@ -1,4 +1,5 @@
 import logging
+import json
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core import utils as ask_utils
@@ -25,14 +26,23 @@ class LaunchRequestHandler(AbstractRequestHandler):
         sess_attr["gameMode"] = "normal" 
 
         class charCreate:
-            def __init__(self,basic_life,var_life,basic_power,var_power,basic_defence,var_defence):
-                self.life = status.LifeStatus(basic_life,var_life)
-                self.power = status.PowerStatus(basic_power,var_power)
-                self.defence = status.DefenceStatus(basic_defence,var_defence)
+            def __init__(self,status_dict):
+
+                basic_life = status_dict["basic_status"]["basic_life"]
+                basic_power = status_dict["basic_status"]["basic_power"]
+                basic_defence = status_dict["basic_status"]["basic_defence"]
+
+                var_life = status_dict["var_status"]["var_life"]
+                var_power = status_dict["var_status"]["var_power"]
+                var_defence = status_dict["var_status"]["var_defence"]
+
+                self.life = status.LifeStatus(basic_life,var_life,0)
+                self.power = status.PowerStatus(basic_power,var_power,0)
+                self.defence = status.DefenceStatus(basic_defence,var_defence,0)
 
         if pers_attr :
-            var_life = pers_attr["my_status"]["var_life"]
-            basic_life = pers_attr["my_status"]["basic_life"]
+            var_life = pers_attr["my_status"]["var_status"]["var_life"]
+            basic_life = pers_attr["my_status"]["var_status"]["basic_life"]
             condition_seed =  var_life / basic_life
             
             if condition_seed == 1:
@@ -48,21 +58,25 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
             speak_output = ("こんにちは！フィッシュバトルへようこそ！あなたのフィッシュは{}みたい。").format(fish_condition)
         else:
-            # My Characterの初期ステータスを作成
-            my_char = charCreate(
-                basic_life    = 100,
-                basic_power   = 100,
-                basic_defence = 100,
 
-                var_life      = 100,
-                var_power     = 100,
-                var_defence   = 100,
+            # リファクタリング予定地
+            # キャラクタ作成モードに遷移させてキャラクタ特性を選択後にから下記の処理を実行する様にしたい
+
+            with open("mylib/parameter_seeds.json") as param:
+                pers_attr = json.load(param)
+
+            # My Characterの初期ステータスを作成
+
+            my_char = charCreate(
+                pers_attr["parameter"]["my_status"]
                 )
 
             # MY Character のステータスを保存
-            pers_attr["my_status"] = my_char.life.commit_param(pers_attr)
-            pers_attr["my_status"] = my_char.power.commit_param(pers_attr)
-            pers_attr["my_status"] = my_char.defence.commit_param(pers_attr)
+            # pers_attr -> my_status
+            pers_attr["parameter"]["my_status"] = my_char.life.commit_param(pers_attr)
+            pers_attr["parameter"]["my_status"] = my_char.power.commit_param(pers_attr)
+            pers_attr["parameter"]["my_status"] = my_char.defence.commit_param(pers_attr)
+
             handler_input.attributes_manager.persistent_attributes = pers_attr
             handler_input.attributes_manager.save_persistent_attributes()
 

@@ -3,7 +3,7 @@
 
 class BaseStatus:
     def __init__(self,basic_param,var_param):
-        self.LIMIT_PARAM      = 999
+        self.LIMIT_PARAM    = 999
         self.MIN_PARAM      = 0
         self.basic_param    = basic_param
         self.var_param      = var_param
@@ -38,8 +38,6 @@ class BaseStatus:
     
         return(result_val)
 
-        
-
 class LifeStatus(BaseStatus):
     def commit_param(self,status_dict):
         my_status = status_dict["my_status"]
@@ -53,6 +51,19 @@ class PowerStatus(BaseStatus):
 
 class DefenceStatus(BaseStatus):
     pass
+
+class test():
+    @classmethod
+    def test_method(self):
+        my_char = charCreate(
+            basic_life    = 100,
+            basic_power   = 100,
+            basic_defence = 100,
+            var_life      = 100,
+            var_power     = 100,
+            var_defence   = 100,
+            )
+
 
 if __name__ == "__main__":
 

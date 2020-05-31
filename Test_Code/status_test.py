@@ -1,5 +1,4 @@
 import status
-import pickle
 
 class charCreate:
     def __init__(self):
@@ -29,8 +28,4 @@ if __name__ == "__main__":
     charcter = charCreate()  
     print(charcter.life.var_param)
 
-    with open('class.pickle',mode='wb') as f:
-        pickle.dump(charcter, f)
-
-        
 
