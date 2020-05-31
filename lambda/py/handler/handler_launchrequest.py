@@ -3,7 +3,7 @@ import logging
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core import utils as ask_utils
 from ask_sdk_core.handler_input import HandlerInput
-
+from mylib import status
 from ask_sdk_model import Response
 
 logger = logging.getLogger(__name__)
@@ -24,11 +24,16 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
         sess_attr["gameMode"] = "normal" 
 
+        class charCreate:
+            def __init__(self,basic_life,var_life,basic_power,var_power,basic_defence,var_defence):
+                self.life = status.LifeStatus(basic_life,var_life)
+                self.power = status.PowerStatus(basic_power,var_power)
+                self.defence = status.DefenceStatus(basic_defence,var_defence)
 
         if pers_attr :
-            life = pers_attr["life"]
-            max_life = pers_attr["max_life"]
-            condition_seed =  life / max_life
+            var_life = pers_attr["my_status"]["var_life"]
+            basic_life = pers_attr["my_status"]["basic_life"]
+            condition_seed =  var_life / basic_life
             
             if condition_seed == 1:
                 fish_condition = "元気いっぱい"
@@ -43,14 +48,24 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
             speak_output = ("こんにちは！フィッシュバトルへようこそ！あなたのフィッシュは{}みたい。").format(fish_condition)
         else:
-            pers_attr["max_life"] = 100
-            pers_attr["life"] = 100
-            pers_attr["power"] = 100
-            pers_attr["defense"] = 100
-            pers_attr["v_count"] = 0
+            # My Characterの初期ステータスを作成
+            my_char = charCreate(
+                basic_life    = 100,
+                basic_power   = 100,
+                basic_defence = 100,
 
+                var_life      = 100,
+                var_power     = 100,
+                var_defence   = 100,
+                )
+
+            # MY Character のステータスを保存
+            pers_attr["my_status"] = my_char.life.commit_param(pers_attr)
+            pers_attr["my_status"] = my_char.power.commit_param(pers_attr)
+            pers_attr["my_status"] = my_char.defence.commit_param(pers_attr)
             handler_input.attributes_manager.persistent_attributes = pers_attr
             handler_input.attributes_manager.save_persistent_attributes()
+
             speak_output = ("初めまして！フィッシュバトルへようこそ！この子があなたの新しいフィッシュです。")
             
         return (

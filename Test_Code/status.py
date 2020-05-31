@@ -37,15 +37,17 @@ class BaseStatus:
         result_val = tmp_param - self.var_param
     
         return(result_val)
+
         
 
 class LifeStatus(BaseStatus):
-    def commit_param(self,pers_attr):
-        my_status = pers_attr["my_status"]
+    def commit_param(self,status_dict):
+        my_status = status_dict["my_status"]
         my_status["basic_life"] = self.basic_param
         my_status["var_life"] = self.var_param
 
         return(my_status)
+
 class PowerStatus(BaseStatus):
     pass
 
@@ -71,6 +73,7 @@ if __name__ == "__main__":
         print("***********************")
 
         userLife=LifeStatus(s["basic_life"],s["var_life"])
+
         print("{}".format(userLife.var_param))
         print("-----------------------")
         print("パラメータUP     ：{}".format(userLife.param_down(8)))
@@ -105,4 +108,4 @@ if __name__ == "__main__":
         print("パラメータ       ：{}".format(user.var_param))
         print("-----------------------")
 
-    commit_test()
+    method_test()
