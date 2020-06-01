@@ -5,6 +5,8 @@ from ask_sdk_core import utils as ask_utils
 from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
+from mylib import status
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -16,15 +18,15 @@ class StatusCheckHandler(AbstractRequestHandler):
         return ask_utils.is_intent_name("StatusCheckIntent")(handler_input)
 
     def handle(self, handler_input):
-        
         # type: (HandlerInput) -> Response
-        attr = handler_input.attributes_manager.persistent_attributes
-        print(attr)
-        max_life = attr["max_life"]
-        life = attr["life"]
-        power = attr["power"]
-        defense = attr["defense"]
-        v_count = attr["v_count"]
+        pers_attr = handler_input.attributes_manager.persistent_attributes
+        my_char = status.charCreate(pers_attr)
+
+        max_life    = my_char.life.max_param
+        life        = my_char.life.var_param
+        power       = my_char.power.var_param
+        defense     = my_char.defence.var_param
+        v_count     = "調整中です"
 
         speak_output = ("フィッシュの最大ライフは{}、今のライフは{}、パワーは{}、ディフェンスは{}です。現在の勝利数は{}").format(max_life,life,power,defense,v_count)
 

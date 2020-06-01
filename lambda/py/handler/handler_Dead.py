@@ -3,6 +3,8 @@ import logging
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core import utils as ask_utils
 from ask_sdk_core.handler_input import HandlerInput
+from mylib import status
+
 
 from ask_sdk_model import Response
 
@@ -14,8 +16,8 @@ class DeadIntentHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         pers_attr = handler_input.attributes_manager.persistent_attributes
-        
-        return pers_attr["life"] <= 0
+        my_char = status.charCreate(pers_attr)
+        return my_char.life.var_param <= 0
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response

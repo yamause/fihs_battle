@@ -27,10 +27,8 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
         if pers_attr :
 
-            my_char = status.charCreate(
-                pers_attr["parameter"]["my_status"]
-                )
-
+            my_char = status.charCreate(pers_attr)
+            
             var_life = my_char.life.var_param
             max_life = my_char.life.max_param
 
@@ -53,21 +51,18 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
             # リファクタリング予定地
             # キャラクタ作成モードに遷移させてキャラクタ特性を選択後にから下記の処理を実行する様にしたい
-
             with open("mylib/parameter_seeds.json") as param:
                 pers_attr = json.load(param)
 
             # My Characterの初期ステータスを作成
             # my_status -> Instans
-            my_char = status.charCreate(
-                pers_attr["parameter"]["my_status"]
-                )
+            my_char = status.charCreate(pers_attr)
 
             # My Character のステータスを保存
             # pers_attr -> my_status
-            pers_attr["parameter"]["my_status"] = my_char.life.commit_param(pers_attr)
-            pers_attr["parameter"]["my_status"] = my_char.power.commit_param(pers_attr)
-            pers_attr["parameter"]["my_status"] = my_char.defence.commit_param(pers_attr)
+            pers_attr = my_char.life.commit_param(pers_attr)
+            pers_attr = my_char.power.commit_param(pers_attr)
+            pers_attr = my_char.defence.commit_param(pers_attr)
 
             handler_input.attributes_manager.persistent_attributes = pers_attr
             handler_input.attributes_manager.save_persistent_attributes()

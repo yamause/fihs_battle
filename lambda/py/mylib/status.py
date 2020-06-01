@@ -60,44 +60,54 @@ class BaseStatus:
 
 class LifeStatus(BaseStatus):
     def commit_param(self,status_dict):
-        my_status = status_dict["parameter"]["my_status"]
-        my_status["basic_status"]["basic_life"]         = self.basic_param
-        my_status["var_status"]["var_life"]             = self.var_param
-        my_status["training_status"]["training_life"]   = self.training_param
-    
-        return(my_status)
+        my_status_dict = status_dict["parameter"]["my_status"]
+        my_status_dict["basic_status"]["basic_life"]         = self.basic_param
+        my_status_dict["var_status"]["var_life"]             = self.var_param
+        my_status_dict["training_status"]["training_life"]   = self.training_param
+        status_dict["parameter"]["my_status"]                = my_status_dict
+
+        return(status_dict)
 
 class PowerStatus(BaseStatus):
     def commit_param(self,status_dict):
-        my_status = status_dict["parameter"]["my_status"]
-        my_status["basic_status"]["basic_power"]        = self.basic_param
-        my_status["var_status"]["var_power"]            = self.var_param
-        my_status["training_status"]["training_power"]  = self.training_param
+        my_status_dict = status_dict["parameter"]["my_status"]
+        my_status_dict["basic_status"]["basic_power"]        = self.basic_param
+        my_status_dict["var_status"]["var_power"]            = self.var_param
+        my_status_dict["training_status"]["training_power"]  = self.training_param
+        status_dict["parameter"]["my_status"]                = my_status_dict
 
-        return(my_status)
+        return(status_dict)
 
 class DefenceStatus(BaseStatus):
     def commit_param(self,status_dict):
-        my_status = status_dict["parameter"]["my_status"]
-        my_status["basic_status"]["basic_defence"]       = self.basic_param
-        my_status["var_status"]["var_defence"]           = self.var_param
-        my_status["training_status"]["training_defence"] = self.training_param
+        my_status_dict = status_dict["parameter"]["my_status"]
+        my_status_dict["basic_status"]["basic_defence"]       = self.basic_param
+        my_status_dict["var_status"]["var_defence"]           = self.var_param
+        my_status_dict["training_status"]["training_defence"] = self.training_param
+        status_dict["parameter"]["my_status"]                 = my_status_dict
 
-        return(my_status)
+        return(status_dict)
 
 class charCreate:
     def __init__(self,status_dict):
-        basic_life = status_dict["basic_status"]["basic_life"]
-        basic_power = status_dict["basic_status"]["basic_power"]
-        basic_defence = status_dict["basic_status"]["basic_defence"]
 
-        var_life = status_dict["var_status"]["var_life"]
-        var_power = status_dict["var_status"]["var_power"]
-        var_defence = status_dict["var_status"]["var_defence"]
+        my_status_dict      = status_dict["parameter"]["my_status"]
 
-        training_life = status_dict["training_status"]["training_life"]
-        training_power = status_dict["training_status"]["training_power"]
-        training_defence = status_dict["training_status"]["training_defence"]
+        basic_dict          = my_status_dict["basic_status"]
+        var_dict            = my_status_dict["var_status"]
+        training_dict       = my_status_dict["training_status"]
+
+        basic_life          = basic_dict["basic_life"]
+        basic_power         = basic_dict["basic_power"]
+        basic_defence       = basic_dict["basic_defence"]
+
+        var_life            = var_dict["var_life"]
+        var_power           = var_dict["var_power"]
+        var_defence         = var_dict["var_defence"]
+
+        training_life       = training_dict["training_life"]
+        training_power      = training_dict["training_power"]
+        training_defence    = training_dict["training_defence"]
 
         self.life = LifeStatus(basic_life,var_life,training_life)
         self.power = PowerStatus(basic_power,var_power,training_power)

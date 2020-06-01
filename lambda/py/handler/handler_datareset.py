@@ -20,7 +20,6 @@ class DataResetHandler(AbstractRequestHandler):
 
         # `yes_no_slot`スロット値の取り出し
         slots = handler_input.request_envelope.request.intent.slots
-        print(slots)
         slots_id = slots["yes_no_slot"].resolutions.resolutions_per_authority[0].values[0].value.id
         
         # スロット値で条件分岐、データを消してもいいかの確認

@@ -52,7 +52,7 @@
             "codeUri": "lambda/py/lambda_upload",
             "functionName": "ask-custom-fish_battle-default",
             "handler": "hello_world.handler",
-            "revisionId": "eadba3bb-0359-4693-9647-3f576c56ef9b",
+            "revisionId": "943d44c7-1f5a-4d6a-b8ec-a1db37a63bb7",
             "runtime": "python3.7"
           }
         ]
