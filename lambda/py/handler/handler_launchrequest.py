@@ -25,25 +25,17 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
         sess_attr["gameMode"] = "normal" 
 
-        class charCreate:
-            def __init__(self,status_dict):
-
-                basic_life = status_dict["basic_status"]["basic_life"]
-                basic_power = status_dict["basic_status"]["basic_power"]
-                basic_defence = status_dict["basic_status"]["basic_defence"]
-
-                var_life = status_dict["var_status"]["var_life"]
-                var_power = status_dict["var_status"]["var_power"]
-                var_defence = status_dict["var_status"]["var_defence"]
-
-                self.life = status.LifeStatus(basic_life,var_life,0)
-                self.power = status.PowerStatus(basic_power,var_power,0)
-                self.defence = status.DefenceStatus(basic_defence,var_defence,0)
-
         if pers_attr :
-            var_life = pers_attr["my_status"]["var_status"]["var_life"]
-            basic_life = pers_attr["my_status"]["var_status"]["basic_life"]
-            condition_seed =  var_life / basic_life
+
+            my_char = status.charCreate(
+                pers_attr["parameter"]["my_status"]
+                )
+
+            var_life = my_char.life.var_param
+            max_life = my_char.life.max_param
+
+# バグあり->常にとても疲れている判定
+            condition_seed =  var_life / max_life
             
             if condition_seed == 1:
                 fish_condition = "元気いっぱい"
@@ -66,12 +58,12 @@ class LaunchRequestHandler(AbstractRequestHandler):
                 pers_attr = json.load(param)
 
             # My Characterの初期ステータスを作成
-
-            my_char = charCreate(
+            # my_status -> Instans
+            my_char = status.charCreate(
                 pers_attr["parameter"]["my_status"]
                 )
 
-            # MY Character のステータスを保存
+            # My Character のステータスを保存
             # pers_attr -> my_status
             pers_attr["parameter"]["my_status"] = my_char.life.commit_param(pers_attr)
             pers_attr["parameter"]["my_status"] = my_char.power.commit_param(pers_attr)
