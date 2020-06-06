@@ -31,9 +31,9 @@
         "exp":0,
         "level":1
     },
-    "area":
+    "set_area":
     {
-        "area_name":"100"
+        "area_id":"100"
     },
     "items":{}
 }

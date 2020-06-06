@@ -10,6 +10,9 @@ from ask_sdk_model import Response
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+# 必要な処理
+# 指定エリアの取得
+# 出現敵の決定
 class BattleIntentHandler(AbstractRequestHandler):
     """Handler for Hello World Intent."""
     def can_handle(self, handler_input):
@@ -18,59 +21,29 @@ class BattleIntentHandler(AbstractRequestHandler):
         return ask_utils.is_intent_name("BattleIntent")(handler_input)
     
     def handle(self, handler_input):
-        
-        class CharCreate():
-            def __init__(self,name,life,power,defense):
-                self.status_dict = {
-                    "name":name,
-                    "life":life,
-                    "power":power,
-                    "defense":defense
-                    }
-
-        class EnemyCharCreate(CharCreate):
-            #敵初期値の設定
-            enemy_box = []
-            def __init__(self,name,life,power,defense):
-            
-                super().__init__(name,life,power,defense)
-                EnemyCharCreate.enemy_box.append(self)
-
-        class StandardCreate:
-            def __init__(self,pers_attr,sess_attr):
-                self.pers_attr = pers_attr
-                self.sess_attr = sess_attr
-                sess_attr["round"] = 0
-                sess_attr["my_status"] = {}
-                sess_attr["en_status"] = {}
-                my = "myfish"
-
-                self.my_fish = CharCreate(
-                        my,
-                        pers_attr["life"],
-                        pers_attr["power"],
-                        pers_attr["defense"]
-                            )
-                enemy_1 = EnemyCharCreate("ザコテキ",100,100,100)
-                enemy_2 = EnemyCharCreate("フツテキ",150,150,150)
-                enemy_3 = EnemyCharCreate("ツヨテキ",200,200,200)
-
-                            # 敵のランダム出現
-                num = random.randint(0,len(EnemyCharCreate.enemy_box) - 1)
-                self.enemy_obj = EnemyCharCreate.enemy_box[num]
 
         pers_attr = handler_input.attributes_manager.persistent_attributes
         sess_attr = handler_input.attributes_manager.session_attributes
+   
+        with open("mylib/area.json") as param:
+            get_area = json.load(param)
 
-        char = StandardCreate(pers_attr,sess_attr)
+        with open("mylib/area.json") as param:
+            get_enemy = json.load(param)
 
-        sess_attr["my_status"] = char.my_fish.status_dict
-        sess_attr["en_status"] = char.enemy_obj.status_dict
+        set_area_id = sess_attr["set_area"]["area_id"]
+        set_area_name = get_area[set_area_id]["area_name"]
+        set_area_enemy = get_area[set_area_id]["pop_enemy"]
+
+        # 敵のランダム出現
+        pop_enemy_id = random.choice(list(set_area_enemy.values()))
+        pop_enemy_name = get_enemy[pop_enemy_id]["enemy_name"]
 
         sess_attr["gameMode"] = "janken" 
         sess_attr["round"] = 0
-        print (sess_attr)
-        speak_output = ("{}が現れた！戦闘を開始します、グー、チョキ、パーから一つ選んでください。").format(char.enemy_obj.status_dict["name"])
+        sess_attr["enemy"] = pop_enemy_id
+
+        speak_output = (f"{set_area_name}で{pop_enemy_name}が現れた！戦闘を開始します、グー、チョキ、パーから一つ選んでください。")
 
         return (
             handler_input.response_builder
