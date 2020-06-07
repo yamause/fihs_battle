@@ -24,8 +24,8 @@ class StatusCheckHandler(AbstractRequestHandler):
 
         max_life    = my_char.life.max_param
         life        = my_char.life.var_param
-        power       = my_char.power.var_param
-        defense     = my_char.defence.var_param
+        power       = my_char.power.max_param
+        defense     = my_char.defence.max_param
         v_count     = "調整中です"
 
         speak_output = ("フィッシュの最大ライフは{}、今のライフは{}、パワーは{}、ディフェンスは{}です。現在の勝利数は{}").format(max_life,life,power,defense,v_count)

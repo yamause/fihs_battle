@@ -1,7 +1,7 @@
 {
     "parameter":
     {
-        "name":{},
+        "name":null,
         "type":"Normal",
         "my_status":
         {
@@ -31,9 +31,6 @@
         "exp":0,
         "level":1
     },
-    "set_area":
-    {
-        "area_id":"100"
-    },
+    "set_area":"100",
     "items":{}
 }

@@ -24,18 +24,22 @@ class BattleIntentHandler(AbstractRequestHandler):
 
         pers_attr = handler_input.attributes_manager.persistent_attributes
         sess_attr = handler_input.attributes_manager.session_attributes
-   
+
+
+
+        # エリア情報の取得
         with open("mylib/area.json") as param:
             get_area = json.load(param)
 
+        set_area_id = pers_attr["set_area"]
+        set_area_name = get_area[set_area_id]["area_name"]
+
+
+        # 敵のランダム出現
         with open("mylib/area.json") as param:
             get_enemy = json.load(param)
 
-        set_area_id = sess_attr["set_area"]["area_id"]
-        set_area_name = get_area[set_area_id]["area_name"]
         set_area_enemy = get_area[set_area_id]["pop_enemy"]
-
-        # 敵のランダム出現
         pop_enemy_id = random.choice(list(set_area_enemy.values()))
         pop_enemy_name = get_enemy[pop_enemy_id]["enemy_name"]
 
