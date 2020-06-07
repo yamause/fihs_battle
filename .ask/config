@@ -57,6 +57,35 @@
           }
         ]
       }
+    },
+    "aoemon": {
+      "skill_id": "amzn1.ask.skill.99410085-30b7-40d3-846a-5b0bdce05094",
+      "was_cloned": false,
+      "merge": {},
+      "resources": {
+        "manifest": {
+          "eTag": "0f1ebe5dbe5694367ca51e28d57efbaa"
+        },
+        "interactionModel": {
+          "ja-JP": {
+            "eTag": "e1e69a3c5db35d2ba42a1af6d6a6abc4"
+          }
+        },
+        "lambda": [
+          {
+            "alexaUsage": [
+              "custom/default"
+            ],
+            "arn": "arn:aws:lambda:us-east-1:856668981468:function:ask-custom-fish_battle-default",
+            "awsRegion": "us-east-1",
+            "codeUri": "lambda/py/lambda_upload",
+            "functionName": "ask-custom-fish_battle-default",
+            "handler": "hello_world.handler",
+            "revisionId": "3dab1da1-372e-4f11-b6f9-c1aa9443c5a3",
+            "runtime": "python3.7"
+          }
+        ]
+      }
     }
   }
 }
