@@ -1,6 +1,6 @@
 
 class BaseStatus:
-    def __init__(self,basic_param,var_param,training_param):
+    def __init__(self,basic_param,var_param,training_param=0):
         self.LIMIT_PARAM            = 999
         self.LOWER_LIMIT_PARAM      = 0
         self.TRAINING_LIMIT_PARAM   = 300
@@ -57,6 +57,8 @@ class BaseStatus:
      
         return(result_val)
         
+    def ver_param_reset(self):
+        self.var_param = self.max_param 
 
 class LifeStatus(BaseStatus):
     def commit_param(self,status_dict):

@@ -14,7 +14,7 @@ logger.setLevel(logging.INFO)
 class StatusCheckHandler(AbstractRequestHandler):
     """Handler for Hello World Intent."""
     def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
+        # type: (HandlerInput) -> ∏
         return ask_utils.is_intent_name("StatusCheckIntent")(handler_input)
 
     def handle(self, handler_input):

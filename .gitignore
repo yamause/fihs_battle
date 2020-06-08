@@ -1,4 +1,4 @@
 .venv/
-ask/*
+.ask/*
 lambda/py/lambda_upload/*
 lambda/py/env.py

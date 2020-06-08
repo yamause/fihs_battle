@@ -149,15 +149,26 @@ class JankenIntentHandler(AbstractRequestHandler):
         # スロット値の取得
         slots = handler_input.request_envelope.request.intent.slots
         slots_id = slots["command"].resolutions.resolutions_per_authority[0].values[0].value.id
-        print(slots_id)
         # バトル回数の指定
         MAX_ROUND = 3
-
-        (speak_output,
-        pers_attr,
-        sess_attr,
-        bools) = BattleInit.battleFunc(slots_id,sess_attr["my_status"],sess_attr["en_status"])
         
+        my_char = status.charCreate(pers_attr)
+        enemy = status.charCreate(sess_attr)
+
+        my_cmd = int(slots_id)
+        enemy_cmd = random.randint(0,2)
+
+        winner = janken.main(my_cmd,enemy_cmd)
+
+        if self.winner == "my_fish":
+            my_char.power.var_status = my_char.power.var_status * 1.5
+        
+        elif self.winner == "enemy":
+            enemy.power.var_status = enemy.power.var_status * 1.5
+
+        my_char =  
+        
+
         handler_input.attributes_manager.persistent_attributes = pers_attr
         handler_input.attributes_manager.save_persistent_attributes()
 
