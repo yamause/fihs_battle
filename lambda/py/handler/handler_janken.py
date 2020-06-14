@@ -55,9 +55,6 @@ class JankenIntentHandler(AbstractRequestHandler):
                 self.en_d = enemy_status["defense"]
                 self.en_l = enemy_status["life"]
                 
-                self.enemyDamege = 0
-                self.myfishDamege = 0
-                
                 self.winner = winner
                 
                 self.calc_method()
@@ -67,10 +64,10 @@ class JankenIntentHandler(AbstractRequestHandler):
                 self.CriticalCalc()
                 
         
-                self.enemyDamege = self.my_p - self.en_d + random.randint(-5,10)
-                self.myfishDamege = self.en_p - self.my_d + random.randint(-5,10)
-                self.enemyDamege = 0 if self.enemyDamege <= 0 else self.enemyDamege
-                self.myfishDamege = 0 if self.myfishDamege <= 0 else self.myfishDamege
+                enemyDamege = my_char.power.var_pram - enemy.defence.var_param + random.randint(-5,10)
+                myfishDamege = enemy.power.var_pram - my_char.defence.var_param + random.randint(-5,10)
+                enemyDamege = 0 if self.enemyDamege <= 0 else self.enemyDamege
+                myfishDamege = 0 if self.myfishDamege <= 0 else self.myfishDamege
                 
                 self.myfishDamege = int(self.myfishDamege)
                 self.enemyDamege  = int(self.enemyDamege)
@@ -160,14 +157,13 @@ class JankenIntentHandler(AbstractRequestHandler):
 
         winner = janken.main(my_cmd,enemy_cmd)
 
-        if self.winner == "my_fish":
-            my_char.power.var_status = my_char.power.var_status * 1.5
+        if winner == "my_fish":
+            my_char.power.var_param = my_char.power.var_param * 1.5
         
-        elif self.winner == "enemy":
-            enemy.power.var_status = enemy.power.var_status * 1.5
+        elif winner == "enemy":
+            enemy.power.var_param = enemy.power.var_param * 1.5
 
-        my_char =  
-        
+        damage = my_char.power.var_param 
 
         handler_input.attributes_manager.persistent_attributes = pers_attr
         handler_input.attributes_manager.save_persistent_attributes()
